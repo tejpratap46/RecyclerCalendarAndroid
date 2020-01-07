@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Recycler Calendar Example</string>
+    <string name="week_calendar">Week Calendar</string>
+    <string name="month_calendar">Month Calendar</string>
+    <string name="page_month_calendar">Page Calendar</string>
+</resources>
