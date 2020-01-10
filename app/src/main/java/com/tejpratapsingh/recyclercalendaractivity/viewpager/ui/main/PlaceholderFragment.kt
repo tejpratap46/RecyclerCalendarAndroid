@@ -4,10 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.tejpratapsingh.recyclercalendar.RecyclerCalendarConfiguration
+import com.tejpratapsingh.recyclercalendar.model.RecyclerCalendarConfiguration
+import com.tejpratapsingh.recyclercalendar.utilities.CalendarUtils
 import com.tejpratapsingh.recyclercalendaractivity.R
+import com.tejpratapsingh.recyclercalendaractivity.model.SimpleEvent
 import com.tejpratapsingh.recyclercalendaractivity.viewpager.ViewPagerRecyclerCalendarAdapter
 import java.util.*
 
@@ -15,6 +19,8 @@ import java.util.*
  * A placeholder fragment containing a simple view.
  */
 class PlaceholderFragment : Fragment() {
+
+    private val eventMap: HashMap<Int, SimpleEvent> = HashMap()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,17 +36,56 @@ class PlaceholderFragment : Fragment() {
         startCal.time = date
         startCal.add(Calendar.MONTH, sectionNumber)
 
-        val configuration: RecyclerCalendarConfiguration = RecyclerCalendarConfiguration(
-            calenderViewType = RecyclerCalendarConfiguration.CalenderViewType.VERTICAL,
-            calendarLocale = Locale.UK,
-            includeMonthHeader = false
-        )
+        for (i in 0..30 step 3) {
+            val eventCal = Calendar.getInstance()
+            eventCal.add(Calendar.DATE, i * 3)
+            val eventDate: Int =
+                (CalendarUtils.dateStringFromFormat(eventCal.time, CalendarUtils.DB_DATE_FORMAT)
+                    ?: "0").toInt()
+            eventMap[eventDate] = SimpleEvent(
+                date = eventCal.time,
+                title = "Event #$i",
+                color = ContextCompat.getColor(root.context, R.color.colorAccent),
+                progress = i * 3
+            )
+        }
+
+        val configuration: RecyclerCalendarConfiguration =
+            RecyclerCalendarConfiguration(
+                calenderViewType = RecyclerCalendarConfiguration.CalenderViewType.VERTICAL,
+                calendarLocale = Locale.UK,
+                includeMonthHeader = false
+            )
 
         val calendarAdapterViewPager: ViewPagerRecyclerCalendarAdapter =
             ViewPagerRecyclerCalendarAdapter(
-                startCal.time,
-                startCal.time,
-                configuration
+                startDate = startCal.time,
+                endDate = startCal.time,
+                configuration = configuration,
+                eventMap = eventMap,
+                dateSelectListener = object : ViewPagerRecyclerCalendarAdapter.OnDateSelected {
+                    override fun onDateSelected(date: Date, event: SimpleEvent?) {
+                        val selectedDate: String =
+                            CalendarUtils.dateStringFromFormat(date, CalendarUtils.LONG_DATE_FORMAT)
+                                ?: ""
+
+                        if (event != null) {
+                            AlertDialog.Builder(activity!!)
+                                .setTitle("Event Clicked")
+                                .setMessage(
+                                    String.format(
+                                        Locale.getDefault(),
+                                        "Date: %s\n\nEvent: %s\n\nProgress: %s",
+                                        selectedDate,
+                                        event.title,
+                                        event.progress
+                                    )
+                                )
+                                .create()
+                                .show()
+                        }
+                    }
+                }
             );
 
         calendarRecyclerView.adapter = calendarAdapterViewPager

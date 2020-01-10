@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -14,14 +15,23 @@
             android:id="@+id/textCalenderItemVerticalDay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center" />
+            android:gravity="center"
+            tools:text="Mon" />
 
         <TextView
             android:id="@+id/textCalenderItemVerticalDate"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="center"
-            android:textStyle="bold" />
+            android:textSize="@dimen/text_size_20"
+            android:textStyle="bold"
+            tools:text="23" />
+
+        <View
+            android:id="@+id/viewCalenderItemVerticalEvent"
+            android:layout_width="4dp"
+            android:layout_height="4dp"
+            android:background="@color/color_7"/>
     </LinearLayout>
 
 </LinearLayout>

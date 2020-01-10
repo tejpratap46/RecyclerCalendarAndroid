@@ -1,16 +1,17 @@
 package com.tejpratapsingh.recyclercalendaractivity.horizontal
 
+import android.content.Context
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.tejpratapsingh.recyclercalendar.RecyclerCalendarBaseAdapter
-import com.tejpratapsingh.recyclercalendar.RecyclerCalendarConfiguration
-import com.tejpratapsingh.recyclercalendar.RecyclerCalenderViewItem
+import com.tejpratapsingh.recyclercalendar.adapter.RecyclerCalendarBaseAdapter
+import com.tejpratapsingh.recyclercalendar.model.RecyclerCalendarConfiguration
+import com.tejpratapsingh.recyclercalendar.model.RecyclerCalenderViewItem
+import com.tejpratapsingh.recyclercalendar.utilities.CalendarUtils
 import com.tejpratapsingh.recyclercalendaractivity.R
 import java.text.DateFormatSymbols
 import java.util.*
@@ -18,8 +19,14 @@ import java.util.*
 class HorizontalRecyclerCalendarAdapter(
     startDate: Date,
     endDate: Date,
-    configuration: RecyclerCalendarConfiguration
+    configuration: RecyclerCalendarConfiguration,
+    private var selectedDate: Date,
+    private val dateSelectListener: OnDateSelected
 ) : RecyclerCalendarBaseAdapter(startDate, endDate, configuration) {
+
+    interface OnDateSelected {
+        fun onDateSelected(date: Date)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view: View = LayoutInflater.from(parent.context)
@@ -35,7 +42,28 @@ class HorizontalRecyclerCalendarAdapter(
         calendarItem: RecyclerCalenderViewItem
     ) {
         val monthViewHolder: MonthCalendarViewHolder = holder as MonthCalendarViewHolder
+        val context: Context = monthViewHolder.itemView.context
         monthViewHolder.itemView.visibility = View.VISIBLE
+
+        monthViewHolder.itemView.setOnClickListener(null)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            monthViewHolder.itemView.background = null
+        } else {
+            monthViewHolder.itemView.setBackgroundDrawable(null)
+        }
+        monthViewHolder.textViewDay.setTextColor(
+            ContextCompat.getColor(
+                context,
+                R.color.colorBlack
+            )
+        )
+        monthViewHolder.textViewDate.setTextColor(
+            ContextCompat.getColor(
+                context,
+                R.color.colorBlack
+            )
+        )
 
         if (calendarItem.isHeader) {
             val selectedCalendar = Calendar.getInstance()
@@ -53,15 +81,53 @@ class HorizontalRecyclerCalendarAdapter(
             monthViewHolder.textViewDay.text = ""
             monthViewHolder.textViewDate.text = ""
         } else {
-            val selectedCalendar = Calendar.getInstance()
-            selectedCalendar.time = calendarItem.date
+            val calendarDate = Calendar.getInstance()
+            calendarDate.time = calendarItem.date
 
-            val day: String = getDay(selectedCalendar.get(Calendar.DAY_OF_WEEK)) ?: ""
+            val stringCalendarTimeFormat: String =
+                CalendarUtils.dateStringFromFormat(calendarItem.date, CalendarUtils.DB_DATE_FORMAT)
+                    ?: ""
+            val stringSelectedTimeFormat: String =
+                CalendarUtils.dateStringFromFormat(selectedDate, CalendarUtils.DB_DATE_FORMAT) ?: ""
+
+            if (stringCalendarTimeFormat == stringSelectedTimeFormat) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    monthViewHolder.itemView.background =
+                        ContextCompat.getDrawable(context, R.drawable.layout_round_corner_filled)
+                } else {
+                    monthViewHolder.itemView.setBackgroundDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.layout_round_corner_filled
+                        )
+                    )
+                }
+                monthViewHolder.textViewDay.setTextColor(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.colorWhite
+                    )
+                )
+                monthViewHolder.textViewDate.setTextColor(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.colorWhite
+                    )
+                )
+            }
+
+            val day: String = getDay(calendarDate.get(Calendar.DAY_OF_WEEK)) ?: ""
 
             monthViewHolder.textViewDay.text = day
 
             monthViewHolder.textViewDate.text =
-                String.format(Locale.getDefault(), "%d", selectedCalendar.get(Calendar.DATE))
+                String.format(Locale.getDefault(), "%d", calendarDate.get(Calendar.DATE))
+
+            monthViewHolder.itemView.setOnClickListener {
+                selectedDate = calendarItem.date
+                dateSelectListener.onDateSelected(calendarItem.date)
+                notifyDataSetChanged()
+            }
         }
     }
 

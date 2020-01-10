@@ -2,11 +2,13 @@ package com.tejpratapsingh.recyclercalendaractivity.horizontal
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.tejpratapsingh.recyclercalendar.RecyclerCalendarConfiguration
+import com.tejpratapsingh.recyclercalendar.model.RecyclerCalendarConfiguration
+import com.tejpratapsingh.recyclercalendar.utilities.CalendarUtils
 import com.tejpratapsingh.recyclercalendaractivity.R
 import java.util.*
 
@@ -21,7 +23,8 @@ class HorizontalCalendarActivity : AppCompatActivity() {
 
         supportActionBar?.setHomeButtonEnabled(true)
 
-        val calendarRecyclerView: RecyclerView = findViewById(R.id.calendarRecyclerView);
+        val calendarRecyclerView: RecyclerView = findViewById(R.id.calendarRecyclerView)
+        val textViewSelectedDate: TextView = findViewById(R.id.textViewSelectedDate)
 
         val date = Date()
         date.time = System.currentTimeMillis()
@@ -32,21 +35,32 @@ class HorizontalCalendarActivity : AppCompatActivity() {
         endCal.time = date
         endCal.add(Calendar.MONTH, 3)
 
-        val configuration: RecyclerCalendarConfiguration = RecyclerCalendarConfiguration(
-            calenderViewType = RecyclerCalendarConfiguration.CalenderViewType.HORIZONTAL,
-            calendarLocale = Locale.UK,
-            includeMonthHeader = true
-        )
+        val configuration: RecyclerCalendarConfiguration =
+            RecyclerCalendarConfiguration(
+                calenderViewType = RecyclerCalendarConfiguration.CalenderViewType.HORIZONTAL,
+                calendarLocale = Locale.UK,
+                includeMonthHeader = true
+            )
+
+        textViewSelectedDate.text =
+            CalendarUtils.dateStringFromFormat(date, CalendarUtils.LONG_DATE_FORMAT) ?: ""
 
         val calendarAdapterHorizontal: HorizontalRecyclerCalendarAdapter =
             HorizontalRecyclerCalendarAdapter(
-                startCal.time,
-                endCal.time,
-                configuration
-            );
+                startDate = startCal.time,
+                endDate = endCal.time,
+                configuration = configuration,
+                selectedDate = date,
+                dateSelectListener = object : HorizontalRecyclerCalendarAdapter.OnDateSelected {
+                    override fun onDateSelected(date: Date) {
+                        textViewSelectedDate.text =
+                            CalendarUtils.dateStringFromFormat(date, CalendarUtils.LONG_DATE_FORMAT)
+                                ?: ""
+                    }
+                }
+            )
 
         calendarRecyclerView.adapter = calendarAdapterHorizontal
-
 
         val snapHelper = PagerSnapHelper() // Or LinearSnapHelper
         snapHelper.attachToRecyclerView(calendarRecyclerView)
