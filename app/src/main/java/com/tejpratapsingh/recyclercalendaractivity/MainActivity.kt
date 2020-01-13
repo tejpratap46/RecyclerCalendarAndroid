@@ -4,8 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import com.tejpratapsingh.recyclercalendaractivity.vertical.VerticalCalendarActivity
 import com.tejpratapsingh.recyclercalendaractivity.horizontal.HorizontalCalendarActivity
+import com.tejpratapsingh.recyclercalendaractivity.simple.SimpleRecyclerCalendarActivity
+import com.tejpratapsingh.recyclercalendaractivity.vertical.VerticalCalendarActivity
 import com.tejpratapsingh.recyclercalendaractivity.viewpager.ViewPagerCalendarActivity
 
 class MainActivity : AppCompatActivity() {
@@ -29,6 +30,13 @@ class MainActivity : AppCompatActivity() {
         val buttonPageCalendar: Button = findViewById(R.id.buttonPageCalendarActivity);
         buttonPageCalendar.setOnClickListener {
             val intent: Intent = Intent(this@MainActivity, ViewPagerCalendarActivity::class.java)
+            startActivity(intent)
+        }
+
+        val buttonSimpleCalendar: Button = findViewById(R.id.buttonSimpleCalendarActivity);
+        buttonSimpleCalendar.setOnClickListener {
+            val intent: Intent =
+                Intent(this@MainActivity, SimpleRecyclerCalendarActivity::class.java)
             startActivity(intent)
         }
     }

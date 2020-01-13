@@ -5,6 +5,7 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -74,6 +75,11 @@ class SimpleRecyclerCalendarAdapter(
             monthViewHolder.textViewDate.text = month
 
             monthViewHolder.itemView.setOnClickListener(null)
+
+            monthViewHolder.layoutContainer.layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
         } else if (calendarItem.isEmpty) {
             monthViewHolder.itemView.visibility = View.GONE
             monthViewHolder.textViewDay.text = ""
@@ -130,7 +136,9 @@ class SimpleRecyclerCalendarAdapter(
     }
 
     class MonthCalendarViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val textViewDay: TextView = itemView.findViewById(R.id.textCalenderItemHorizontalDay)
-        val textViewDate: TextView = itemView.findViewById(R.id.textCalenderItemHorizontalDate)
+        val layoutContainer: LinearLayout =
+            itemView.findViewById(R.id.layoutCalenderItemSimpleContainer)
+        val textViewDay: TextView = itemView.findViewById(R.id.textCalenderItemSimpleDay)
+        val textViewDate: TextView = itemView.findViewById(R.id.textCalenderItemSimpleDate)
     }
 }

@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutCalenderItemSimpleContainer"
     android:layout_width="50dp"
     android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textCalenderItemHorizontalDay"
+        android:id="@+id/textCalenderItemSimpleDay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -15,8 +16,8 @@
         tools:text="Mon" />
 
     <TextView
-        android:id="@+id/textCalenderItemHorizontalDate"
-        android:layout_width="40dp"
+        android:id="@+id/textCalenderItemSimpleDate"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:gravity="center"
         android:textColor="@color/colorBlack"

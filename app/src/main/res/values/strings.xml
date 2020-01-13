@@ -4,4 +4,5 @@
     <string name="month_calendar">Month Calendar</string>
     <string name="page_month_calendar">Page Calendar</string>
     <string name="text_selected_date">Selected Date</string>
+    <string name="simple_calendar">Simple Calendar</string>
 </resources>
