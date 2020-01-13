@@ -1,13 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="50dp"
     android:orientation="vertical">
 
+    <ProgressBar
+        android:id="@+id/progressBarCalenderItemViewPager"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:background="@drawable/circle_shape"
+        android:indeterminate="false"
+        android:max="100"
+        android:progress="50"
+        android:progressDrawable="@drawable/circular_progress_bar" />
+
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -16,24 +29,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="12sp"
             tools:text="Mon" />
 
         <TextView
             android:id="@+id/textCalenderItemViewPagerDate"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:gravity="center"
-            android:textSize="@dimen/text_size_20"
+            android:textSize="16sp"
             android:textStyle="bold"
             tools:text="23" />
-
-        <ProgressBar
-            android:id="@+id/progressBarCalenderItemViewPager"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:progress="50"
-            android:max="100"
-            android:layout_height="wrap_content" />
     </LinearLayout>
 
-</LinearLayout>
+</FrameLayout>
