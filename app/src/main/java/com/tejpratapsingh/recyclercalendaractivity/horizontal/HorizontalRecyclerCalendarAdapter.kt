@@ -69,7 +69,7 @@ class HorizontalRecyclerCalendarAdapter(
             val selectedCalendar = Calendar.getInstance()
             selectedCalendar.time = calendarItem.date
 
-            val month: String = getMonth(selectedCalendar.get(Calendar.MONTH)) ?: ""
+            val month: String = CalendarUtils.getMonth(selectedCalendar.get(Calendar.MONTH)) ?: ""
             val year = selectedCalendar[Calendar.YEAR].toLong()
 
             monthViewHolder.textViewDay.text = year.toString()
@@ -116,7 +116,7 @@ class HorizontalRecyclerCalendarAdapter(
                 )
             }
 
-            val day: String = getDay(calendarDate.get(Calendar.DAY_OF_WEEK)) ?: ""
+            val day: String = CalendarUtils.getDay(calendarDate.get(Calendar.DAY_OF_WEEK)) ?: ""
 
             monthViewHolder.textViewDay.text = day
 
@@ -134,18 +134,5 @@ class HorizontalRecyclerCalendarAdapter(
     class MonthCalendarViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textViewDay: TextView = itemView.findViewById(R.id.textCalenderItemHorizontalDay)
         val textViewDate: TextView = itemView.findViewById(R.id.textCalenderItemHorizontalDate)
-    }
-
-    private fun getMonth(month: Int): String? {
-        val mDateFormatSymbols: DateFormatSymbols =
-            DateFormatSymbols.getInstance(Locale.UK)
-        return mDateFormatSymbols.months.get(month)
-    }
-
-    private fun getDay(day: Int): String? {
-        val mDateFormatSymbols: DateFormatSymbols =
-            DateFormatSymbols.getInstance(Locale.UK)
-        val dayStr: String = mDateFormatSymbols.weekdays.get(day)
-        return dayStr.substring(0, if (dayStr.length >= 3) 3 else dayStr.length)
     }
 }
