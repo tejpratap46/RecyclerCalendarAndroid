@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tejpratapsingh.recyclercalendar.model.RecyclerCalendarConfiguration
 import com.tejpratapsingh.recyclercalendar.model.RecyclerCalenderViewItem
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 abstract class RecyclerCalendarBaseAdapter(
@@ -23,7 +22,7 @@ abstract class RecyclerCalendarBaseAdapter(
         )
     private val handler = Handler()
 
-    private var calendarItemList: ArrayList<RecyclerCalenderViewItem> = ArrayList()
+    private var calendarItemList: LinkedList<RecyclerCalenderViewItem> = LinkedList()
 
     init {
         val startCalendar = Calendar.getInstance(configuration.calendarLocale)

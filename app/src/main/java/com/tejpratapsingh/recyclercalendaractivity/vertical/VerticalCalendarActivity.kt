@@ -36,7 +36,7 @@ class VerticalCalendarActivity : AppCompatActivity() {
 
         val endCal = Calendar.getInstance()
         endCal.time = date
-        endCal.add(Calendar.MONTH, 6)
+        endCal.add(Calendar.MONTH, 12)
 
         for (i in 0..30 step 3) {
             val eventCal = Calendar.getInstance()
