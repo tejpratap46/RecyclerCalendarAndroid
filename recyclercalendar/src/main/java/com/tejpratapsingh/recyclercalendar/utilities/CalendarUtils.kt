@@ -1,6 +1,5 @@
 package com.tejpratapsingh.recyclercalendar.utilities
 
-import java.text.DateFormatSymbols
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -24,6 +23,12 @@ class CalendarUtils {
         val DISPLAY_TIME_FORMAT = "hh:mm aaa"
         @JvmStatic
         val DISPLAY_DATE_TIME_FORMAT = "EEE, dd MMM yyyy, hh:mm aaa"
+        @JvmStatic
+        val DISPLAY_WEEK_DAY_FORMAT = "EEEEEE"
+        @JvmStatic
+        val DISPLAY_MONTH_FORMAT = "MMMM"
+        @JvmStatic
+        val DISPLAY_DATE_FORMAT = "dd"
 
         /**
          * Returns Date Object from date string and date format
@@ -60,31 +65,6 @@ class CalendarUtils {
                 e.printStackTrace()
                 null
             }
-        }
-
-        /**
-         * Get month Name from month index
-         *
-         * @param month month index
-         * @return IF OK month string ELSE null
-         */
-        fun getMonth(month: Int): String? {
-            val mDateFormatSymbols: DateFormatSymbols =
-                DateFormatSymbols.getInstance(Locale.UK)
-            return mDateFormatSymbols.months.get(month)
-        }
-
-        /**
-         * Get day Name from day index of week
-         *
-         * @param day day index
-         * @return IF OK day string ELSE null
-         */
-        fun getDay(day: Int): String? {
-            val mDateFormatSymbols: DateFormatSymbols =
-                DateFormatSymbols.getInstance(Locale.UK)
-            val dayStr: String = mDateFormatSymbols.weekdays.get(day)
-            return dayStr.substring(0, if (dayStr.length >= 3) 3 else dayStr.length)
         }
     }
 }

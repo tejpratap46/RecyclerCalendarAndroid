@@ -65,7 +65,7 @@ override fun onBindViewHolder(
         calendarItem: RecyclerCalenderViewItem
 	) {
     val monthViewHolder: MonthCalendarViewHolder = holder as MonthCalendarViewHolder
-	first reset view of current item as it will be reused for different dates and header.
+	// first reset view of current item as it will be reused for different dates and header.
 	{
 	    // Reset all you view here...
 		monthViewHolder.itemView.visibility = View.VISIBLE
@@ -109,7 +109,7 @@ override fun onBindViewHolder(
 	    }  
  
 		// Set Date to textView
-	    monthViewHolder.textViewDate.text = String.format(Locale.getDefault(), "%d", calendarDate.get(Calendar.DATE))  
+	    monthViewHolder.textViewDate.text = CalendarUtils.dateStringFromFormat(calendarDate.time, CalendarUtils.DISPLAY_DATE_FORMAT) ?: ""  
   
 		// Here as an example, im sending Tap data to listener
 	    monthViewHolder.itemView.setOnClickListener {  

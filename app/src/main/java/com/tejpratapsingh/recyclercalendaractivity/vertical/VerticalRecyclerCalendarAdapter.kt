@@ -52,7 +52,7 @@ class VerticalRecyclerCalendarAdapter(
             val selectedCalendar = Calendar.getInstance(Locale.UK)
             selectedCalendar.time = calendarItem.date
 
-            val month: String = CalendarUtils.getMonth(selectedCalendar.get(Calendar.MONTH)) ?: ""
+            val month: String = CalendarUtils.dateStringFromFormat(selectedCalendar.time, CalendarUtils.DISPLAY_MONTH_FORMAT) ?: ""
             val year = selectedCalendar[Calendar.YEAR].toLong()
 
             monthViewHolder.textViewDay.text = year.toString()
@@ -65,7 +65,7 @@ class VerticalRecyclerCalendarAdapter(
             val calendarDate = Calendar.getInstance(Locale.UK)
             calendarDate.time = calendarItem.date
 
-            val day: String = CalendarUtils.getDay(calendarDate.get(Calendar.DAY_OF_WEEK)) ?: ""
+            val day: String = CalendarUtils.dateStringFromFormat(calendarDate.time, CalendarUtils.DISPLAY_WEEK_DAY_FORMAT) ?: ""
 
             monthViewHolder.textViewDay.text = day
 
@@ -79,7 +79,7 @@ class VerticalRecyclerCalendarAdapter(
             }
 
             monthViewHolder.textViewDate.text =
-                String.format(Locale.getDefault(), "%d", calendarDate.get(Calendar.DATE))
+                CalendarUtils.dateStringFromFormat(calendarDate.time, CalendarUtils.DISPLAY_DATE_FORMAT) ?: ""
 
             monthViewHolder.itemView.setOnClickListener {
                 dateSelectListener.onDateSelected(calendarItem.date, eventMap[dateInt])
