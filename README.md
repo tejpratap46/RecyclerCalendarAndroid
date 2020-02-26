@@ -77,7 +77,7 @@ override fun onBindViewHolder(
 	// 2. Empty Space -> This is empty space to fill days before first day of month start, hide every view of ViewHolder Here
 	// 3. Date -> This is a date, customise your date with event, tecket information, Available slot OR just selection etc here
 	if (calendarItem.isHeader) {
-	    val selectedCalendar = Calendar.getInstance(Locale.UK)  
+	    val selectedCalendar = Calendar.getInstance(Locale.getDefault())  
 		selectedCalendar.time = calendarItem.date  
   
 		val month: String = CalendarUtils.getMonth(selectedCalendar.get(Calendar.MONTH)) ?: ""  
@@ -90,7 +90,7 @@ override fun onBindViewHolder(
 		monthViewHolder.textViewDay.text = ""
 		monthViewHolder.textViewDate.text = ""
 	} else {  
-	    val calendarDate = Calendar.getInstance(Locale.UK)  
+	    val calendarDate = Calendar.getInstance(Locale.getDefault())  
 	    calendarDate.time = calendarItem.date
 
 		val day: String = CalendarUtils.getDay(calendarDate.get(Calendar.DAY_OF_WEEK)) ?: ""
@@ -150,7 +150,7 @@ endCal.add(Calendar.MONTH, 3)
 val configuration: RecyclerCalendarConfiguration =  
     RecyclerCalendarConfiguration(  
         calenderViewType = RecyclerCalendarConfiguration.CalenderViewType.VERTICAL,  // It will scroll vertically
-        calendarLocale = Locale.UK,  // Calendar Locale will be UK
+        calendarLocale = Locale.getDefault(),  // Calendar Locale will be UK
         includeMonthHeader = true  // Month Header will be included
   )  
   

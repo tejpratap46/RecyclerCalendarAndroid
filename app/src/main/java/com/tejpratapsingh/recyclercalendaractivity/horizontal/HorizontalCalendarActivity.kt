@@ -38,12 +38,16 @@ class HorizontalCalendarActivity : AppCompatActivity() {
         val configuration: RecyclerCalendarConfiguration =
             RecyclerCalendarConfiguration(
                 calenderViewType = RecyclerCalendarConfiguration.CalenderViewType.HORIZONTAL,
-                calendarLocale = Locale.UK,
+                calendarLocale = Locale.getDefault(),
                 includeMonthHeader = true
             )
 
         textViewSelectedDate.text =
-            CalendarUtils.dateStringFromFormat(date, CalendarUtils.LONG_DATE_FORMAT) ?: ""
+            CalendarUtils.dateStringFromFormat(
+                locale = configuration.calendarLocale,
+                date = date,
+                format = CalendarUtils.LONG_DATE_FORMAT
+            ) ?: ""
 
         val calendarAdapterHorizontal: HorizontalRecyclerCalendarAdapter =
             HorizontalRecyclerCalendarAdapter(
@@ -54,7 +58,11 @@ class HorizontalCalendarActivity : AppCompatActivity() {
                 dateSelectListener = object : HorizontalRecyclerCalendarAdapter.OnDateSelected {
                     override fun onDateSelected(date: Date) {
                         textViewSelectedDate.text =
-                            CalendarUtils.dateStringFromFormat(date, CalendarUtils.LONG_DATE_FORMAT)
+                            CalendarUtils.dateStringFromFormat(
+                                locale = configuration.calendarLocale,
+                                date = date,
+                                format = CalendarUtils.LONG_DATE_FORMAT
+                            )
                                 ?: ""
                     }
                 }

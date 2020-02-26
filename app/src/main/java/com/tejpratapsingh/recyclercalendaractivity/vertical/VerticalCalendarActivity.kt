@@ -38,11 +38,23 @@ class VerticalCalendarActivity : AppCompatActivity() {
         endCal.time = date
         endCal.add(Calendar.MONTH, 12)
 
+        val configuration: RecyclerCalendarConfiguration =
+            RecyclerCalendarConfiguration(
+                calenderViewType = RecyclerCalendarConfiguration.CalenderViewType.VERTICAL,
+                calendarLocale = Locale.getDefault(),
+                includeMonthHeader = true
+            )
+
+        // Some Random Events
         for (i in 0..30 step 3) {
             val eventCal = Calendar.getInstance()
             eventCal.add(Calendar.DATE, i * 3)
             val eventDate: Int =
-                (CalendarUtils.dateStringFromFormat(eventCal.time, CalendarUtils.DB_DATE_FORMAT)
+                (CalendarUtils.dateStringFromFormat(
+                    locale = configuration.calendarLocale,
+                    date = eventCal.time,
+                    format = CalendarUtils.DB_DATE_FORMAT
+                )
                     ?: "0").toInt()
             eventMap[eventDate] = SimpleEvent(
                 eventCal.time,
@@ -50,13 +62,6 @@ class VerticalCalendarActivity : AppCompatActivity() {
                 ContextCompat.getColor(applicationContext, R.color.colorAccent)
             )
         }
-
-        val configuration: RecyclerCalendarConfiguration =
-            RecyclerCalendarConfiguration(
-                calenderViewType = RecyclerCalendarConfiguration.CalenderViewType.VERTICAL,
-                calendarLocale = Locale.UK,
-                includeMonthHeader = true
-            )
 
         val calendarAdapterVertical: VerticalRecyclerCalendarAdapter =
             VerticalRecyclerCalendarAdapter(
@@ -67,7 +72,11 @@ class VerticalCalendarActivity : AppCompatActivity() {
                 dateSelectListener = object : VerticalRecyclerCalendarAdapter.OnDateSelected {
                     override fun onDateSelected(date: Date, event: SimpleEvent?) {
                         val selectedDate: String =
-                            CalendarUtils.dateStringFromFormat(date, CalendarUtils.LONG_DATE_FORMAT)
+                            CalendarUtils.dateStringFromFormat(
+                                locale = configuration.calendarLocale,
+                                date = date,
+                                format = CalendarUtils.LONG_DATE_FORMAT
+                            )
                                 ?: ""
 
                         if (event != null) {

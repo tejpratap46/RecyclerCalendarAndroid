@@ -36,11 +36,23 @@ class PlaceholderFragment : Fragment() {
         startCal.time = date
         startCal.add(Calendar.MONTH, sectionNumber)
 
+        val configuration: RecyclerCalendarConfiguration =
+            RecyclerCalendarConfiguration(
+                calenderViewType = RecyclerCalendarConfiguration.CalenderViewType.VERTICAL,
+                calendarLocale = Locale.getDefault(),
+                includeMonthHeader = false
+            )
+
+        // Some Random Events
         for (i in 0..30 step 3) {
             val eventCal = Calendar.getInstance()
             eventCal.add(Calendar.DATE, i * 3)
             val eventDate: Int =
-                (CalendarUtils.dateStringFromFormat(eventCal.time, CalendarUtils.DB_DATE_FORMAT)
+                (CalendarUtils.dateStringFromFormat(
+                    locale = configuration.calendarLocale,
+                    date = eventCal.time,
+                    format = CalendarUtils.DB_DATE_FORMAT
+                )
                     ?: "0").toInt()
             eventMap[eventDate] = SimpleEvent(
                 date = eventCal.time,
@@ -49,13 +61,6 @@ class PlaceholderFragment : Fragment() {
                 progress = i * 3
             )
         }
-
-        val configuration: RecyclerCalendarConfiguration =
-            RecyclerCalendarConfiguration(
-                calenderViewType = RecyclerCalendarConfiguration.CalenderViewType.VERTICAL,
-                calendarLocale = Locale.UK,
-                includeMonthHeader = false
-            )
 
         val calendarAdapterViewPager: ViewPagerRecyclerCalendarAdapter =
             ViewPagerRecyclerCalendarAdapter(
@@ -66,7 +71,11 @@ class PlaceholderFragment : Fragment() {
                 dateSelectListener = object : ViewPagerRecyclerCalendarAdapter.OnDateSelected {
                     override fun onDateSelected(date: Date, event: SimpleEvent?) {
                         val selectedDate: String =
-                            CalendarUtils.dateStringFromFormat(date, CalendarUtils.LONG_DATE_FORMAT)
+                            CalendarUtils.dateStringFromFormat(
+                                locale = configuration.calendarLocale,
+                                date = date,
+                                format = CalendarUtils.LONG_DATE_FORMAT
+                            )
                                 ?: ""
 
                         if (event != null) {

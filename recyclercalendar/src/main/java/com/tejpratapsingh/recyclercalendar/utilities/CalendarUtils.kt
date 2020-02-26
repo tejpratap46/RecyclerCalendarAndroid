@@ -33,14 +33,15 @@ class CalendarUtils {
         /**
          * Returns Date Object from date string and date format
          *
+         * @param locale your preferred locale
          * @param date string date
          * @param format string date format
          * @return IF OK date object ELSE null
          */
         @JvmStatic
-        fun dateFromAnyFormat(date: String, format: String): Date? {
+        fun dateFromAnyFormat(locale: Locale, date: String, format: String): Date? {
             return try {
-                val formatter = SimpleDateFormat(format, Locale.getDefault())
+                val formatter = SimpleDateFormat(format, locale)
                 formatter.parse(date)
             } catch (e: ParseException) {
                 e.printStackTrace()
@@ -51,15 +52,16 @@ class CalendarUtils {
         /**
          * Returns Date Object from date string and date format
          *
+         * @param locale your preferred locale
          * @param date string date
          * @param format string date format
          * @return IF OK date object ELSE null
          */
         @JvmStatic
-        fun dateStringFromFormat(date: Date, format: String): String? {
+        fun dateStringFromFormat(locale: Locale = Locale.getDefault(), date: Date, format: String): String? {
             return try {
                 val formatter =
-                    SimpleDateFormat(format, Locale.getDefault())
+                    SimpleDateFormat(format, locale)
                 formatter.format(date)
             } catch (e: Exception) {
                 e.printStackTrace()

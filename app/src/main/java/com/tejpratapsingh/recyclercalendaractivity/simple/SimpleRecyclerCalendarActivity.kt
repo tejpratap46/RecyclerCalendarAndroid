@@ -36,7 +36,7 @@ class SimpleRecyclerCalendarActivity : AppCompatActivity() {
         val configuration: RecyclerCalendarConfiguration =
             RecyclerCalendarConfiguration(
                 calenderViewType = RecyclerCalendarConfiguration.CalenderViewType.VERTICAL,
-                calendarLocale = Locale.UK,
+                calendarLocale = Locale.getDefault(),
                 includeMonthHeader = true
             )
 

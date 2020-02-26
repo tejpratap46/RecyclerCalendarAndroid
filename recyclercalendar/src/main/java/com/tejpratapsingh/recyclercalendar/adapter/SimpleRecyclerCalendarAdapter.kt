@@ -18,7 +18,7 @@ import java.util.*
 class SimpleRecyclerCalendarAdapter(
     startDate: Date,
     endDate: Date,
-    configuration: RecyclerCalendarConfiguration,
+    private val configuration: RecyclerCalendarConfiguration,
     private var selectedDate: Date,
     private val dateSelectListener: OnDateSelected
 ) : RecyclerCalendarBaseAdapter(startDate, endDate, configuration) {
@@ -67,7 +67,11 @@ class SimpleRecyclerCalendarAdapter(
             val selectedCalendar = Calendar.getInstance()
             selectedCalendar.time = calendarItem.date
 
-            val month: String = CalendarUtils.dateStringFromFormat(selectedCalendar.time, CalendarUtils.DISPLAY_MONTH_FORMAT) ?: ""
+            val month: String = CalendarUtils.dateStringFromFormat(
+                locale = configuration.calendarLocale,
+                date = selectedCalendar.time,
+                format = CalendarUtils.DISPLAY_MONTH_FORMAT
+            ) ?: ""
             val year = selectedCalendar[Calendar.YEAR].toLong()
 
             monthViewHolder.textViewDay.text = year.toString()
@@ -88,10 +92,18 @@ class SimpleRecyclerCalendarAdapter(
             calendarDate.time = calendarItem.date
 
             val stringCalendarTimeFormat: String =
-                CalendarUtils.dateStringFromFormat(calendarItem.date, CalendarUtils.DB_DATE_FORMAT)
+                CalendarUtils.dateStringFromFormat(
+                    locale = configuration.calendarLocale,
+                    date = calendarItem.date,
+                    format = CalendarUtils.DB_DATE_FORMAT
+                )
                     ?: ""
             val stringSelectedTimeFormat: String =
-                CalendarUtils.dateStringFromFormat(selectedDate, CalendarUtils.DB_DATE_FORMAT) ?: ""
+                CalendarUtils.dateStringFromFormat(
+                    locale = configuration.calendarLocale,
+                    date = selectedDate,
+                    format = CalendarUtils.DB_DATE_FORMAT
+                ) ?: ""
 
             if (stringCalendarTimeFormat == stringSelectedTimeFormat) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -119,12 +131,20 @@ class SimpleRecyclerCalendarAdapter(
                 )
             }
 
-            val day: String = CalendarUtils.dateStringFromFormat(calendarDate.time, CalendarUtils.DISPLAY_WEEK_DAY_FORMAT) ?: ""
+            val day: String = CalendarUtils.dateStringFromFormat(
+                locale = configuration.calendarLocale,
+                date = calendarDate.time,
+                format = CalendarUtils.DISPLAY_WEEK_DAY_FORMAT
+            ) ?: ""
 
             monthViewHolder.textViewDay.text = day
 
             monthViewHolder.textViewDate.text =
-                CalendarUtils.dateStringFromFormat(calendarDate.time, CalendarUtils.DISPLAY_DATE_FORMAT) ?: ""
+                CalendarUtils.dateStringFromFormat(
+                    locale = configuration.calendarLocale,
+                    date = calendarDate.time,
+                    format = CalendarUtils.DISPLAY_DATE_FORMAT
+                ) ?: ""
 
             monthViewHolder.itemView.setOnClickListener {
                 selectedDate = calendarItem.date
