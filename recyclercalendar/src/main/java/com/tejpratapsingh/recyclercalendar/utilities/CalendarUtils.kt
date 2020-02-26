@@ -68,5 +68,15 @@ class CalendarUtils {
                 null
             }
         }
+
+        /**
+         * @param date date to be converted
+         * @return String of date
+         */
+        @JvmStatic
+        fun getGmt(date: Date): String {
+            val dfDate = SimpleDateFormat("dd/MMM/yyyy HH:mm:ss", Locale.getDefault())
+            return dfDate.format(date.time)
+        }
     }
 }

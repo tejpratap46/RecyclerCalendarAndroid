@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.tejpratapsingh.recyclercalendar.adapter.SimpleRecyclerCalendarAdapter
 import com.tejpratapsingh.recyclercalendar.model.RecyclerCalendarConfiguration
+import com.tejpratapsingh.recyclercalendar.utilities.CalendarUtils
 import com.tejpratapsingh.recyclercalendar.views.SimpleRecyclerCalendarView
 import com.tejpratapsingh.recyclercalendaractivity.R
 import java.util.*
@@ -47,7 +48,7 @@ class SimpleRecyclerCalendarActivity : AppCompatActivity() {
             date,
             object : SimpleRecyclerCalendarAdapter.OnDateSelected {
                 override fun onDateSelected(date: Date) {
-                    Toast.makeText(calenderView.context, "Date Selected: ${date.toGMTString()}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(calenderView.context, "Date Selected: ${CalendarUtils.getGmt(date)}", Toast.LENGTH_LONG).show()
                 }
             })
     }

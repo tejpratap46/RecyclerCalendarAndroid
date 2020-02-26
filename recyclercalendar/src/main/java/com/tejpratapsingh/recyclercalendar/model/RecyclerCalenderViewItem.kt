@@ -1,5 +1,6 @@
 package com.tejpratapsingh.recyclercalendar.model
 
+import com.tejpratapsingh.recyclercalendar.utilities.CalendarUtils
 import java.util.*
 
 class RecyclerCalenderViewItem constructor(
@@ -18,7 +19,7 @@ class RecyclerCalenderViewItem constructor(
         return String.format(
             Locale.getDefault(),
             "date: %s, spanSize: %d, isEmpty: %s, isHeader: %s",
-            date.toGMTString(),
+            CalendarUtils.getGmt(date),
             spanSize,
             isEmpty.toString(),
             isHeader.toString()

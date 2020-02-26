@@ -163,7 +163,7 @@ calenderView.initialise(
     object : SimpleRecyclerCalendarAdapter.OnDateSelected {  
         override fun onDateSelected(date: Date) {  
 	        // Callback when calendar date is selected
-            Toast.makeText(calenderView.context, "Date Selected: ${date.toGMTString()}", Toast.LENGTH_LONG).show()  
+            Toast.makeText(calenderView.context, "Date Selected: ${CalendarUtils.getGmt(date)}", Toast.LENGTH_LONG).show()  
         }  
     })
 ```
