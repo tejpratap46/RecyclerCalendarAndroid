@@ -6,4 +6,9 @@
     <string name="text_selected_date">Selected Date</string>
     <string name="simple_calendar">Simple Calendar</string>
     <string name="example">Example</string>
+    <string name="selection_mode">Selection Mode</string>
+    <string name="none">None</string>
+    <string name="single">Single</string>
+    <string name="multiple">Multiple</string>
+    <string name="range">Range</string>
 </resources>

@@ -2,10 +2,8 @@ package com.tejpratapsingh.recyclercalendaractivity.viewpager
 
 import android.os.Build
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.tejpratapsingh.recyclercalendaractivity.R
@@ -16,11 +14,6 @@ class ViewPagerCalendarActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_pager_calendar)
-
-        supportActionBar?.setHomeButtonEnabled(true)
-
-        val toolbar: Toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar)
 
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
         val viewPager: ViewPager = findViewById(R.id.view_pager)
@@ -35,12 +28,5 @@ class ViewPagerCalendarActivity : AppCompatActivity() {
                 tabs.layoutDirection = View.LAYOUT_DIRECTION_LTR;
             }
         }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item?.itemId == android.R.id.home) {
-            finish()
-        }
-        return super.onOptionsItemSelected(item)
     }
 }

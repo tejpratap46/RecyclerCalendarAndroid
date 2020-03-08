@@ -1,10 +1,8 @@
 package com.tejpratapsingh.recyclercalendaractivity.horizontal
 
 import android.os.Bundle
-import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.tejpratapsingh.recyclercalendar.model.RecyclerCalendarConfiguration
@@ -17,11 +15,6 @@ class HorizontalCalendarActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_horizontal_calendar)
-
-        val toolbar: Toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar)
-
-        supportActionBar?.setHomeButtonEnabled(true)
 
         val calendarRecyclerView: RecyclerView = findViewById(R.id.calendarRecyclerView)
         val textViewSelectedDate: TextView = findViewById(R.id.textViewSelectedDate)
@@ -72,12 +65,5 @@ class HorizontalCalendarActivity : AppCompatActivity() {
 
         val snapHelper = PagerSnapHelper() // Or LinearSnapHelper
         snapHelper.attachToRecyclerView(calendarRecyclerView)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item?.itemId == android.R.id.home) {
-            finish()
-        }
-        return super.onOptionsItemSelected(item)
     }
 }

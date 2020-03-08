@@ -119,25 +119,27 @@ class SimpleRecyclerCalendarAdapter(
 
             when (configuration.selectionMode) {
                 is SimpleRecyclerCalendarConfiguration.SelectionModeSingle -> {
-                    val selectedDate: Date =
+                    val selectedDate: Date? =
                         (configuration.selectionMode as SimpleRecyclerCalendarConfiguration.SelectionModeSingle).selectedDate
 
-                    val stringSelectedTimeFormat: String =
-                        CalendarUtils.dateStringFromFormat(
-                            locale = configuration.calendarLocale,
-                            date = selectedDate,
-                            format = CalendarUtils.DB_DATE_FORMAT
-                        ) ?: ""
+                    if (selectedDate != null) {
+                        val stringSelectedTimeFormat: String =
+                            CalendarUtils.dateStringFromFormat(
+                                locale = configuration.calendarLocale,
+                                date = selectedDate,
+                                format = CalendarUtils.DB_DATE_FORMAT
+                            ) ?: ""
 
-                    if (stringCalendarTimeFormat == stringSelectedTimeFormat) {
-                        highlightDate(monthViewHolder, POSITION.NONE)
-                    }
+                        if (stringCalendarTimeFormat == stringSelectedTimeFormat) {
+                            highlightDate(monthViewHolder, POSITION.NONE)
+                        }
 
-                    monthViewHolder.itemView.setOnClickListener {
-                        (configuration.selectionMode as SimpleRecyclerCalendarConfiguration.SelectionModeSingle).selectedDate =
-                            calendarItem.date
-                        dateSelectListener.onDateSelected(calendarItem.date)
-                        notifyDataSetChanged()
+                        monthViewHolder.itemView.setOnClickListener {
+                            (configuration.selectionMode as SimpleRecyclerCalendarConfiguration.SelectionModeSingle).selectedDate =
+                                calendarItem.date
+                            dateSelectListener.onDateSelected(calendarItem.date)
+                            notifyDataSetChanged()
+                        }
                     }
                 }
                 is SimpleRecyclerCalendarConfiguration.SelectionModeMultiple -> {

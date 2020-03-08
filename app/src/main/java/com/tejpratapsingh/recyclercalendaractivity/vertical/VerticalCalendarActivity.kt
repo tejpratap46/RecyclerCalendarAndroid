@@ -1,10 +1,8 @@
 package com.tejpratapsingh.recyclercalendaractivity.vertical
 
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.tejpratapsingh.recyclercalendar.model.RecyclerCalendarConfiguration
@@ -21,11 +19,6 @@ class VerticalCalendarActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vertical_calendar)
-
-        val toolbar: Toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar)
-
-        supportActionBar?.setHomeButtonEnabled(true)
 
         val calendarRecyclerView: RecyclerView = findViewById(R.id.calendarRecyclerView)
 
@@ -98,12 +91,5 @@ class VerticalCalendarActivity : AppCompatActivity() {
             );
 
         calendarRecyclerView.adapter = calendarAdapterVertical
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item?.itemId == android.R.id.home) {
-            finish()
-        }
-        return super.onOptionsItemSelected(item)
     }
 }

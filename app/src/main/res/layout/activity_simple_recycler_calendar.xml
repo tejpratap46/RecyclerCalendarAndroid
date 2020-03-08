@@ -1,25 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".simple.SimpleRecyclerCalendarActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".simple.SimpleRecyclerCalendarActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_margin="@dimen/activity_vertical_margin"
+        android:gravity="center_horizontal"
+        android:text="@string/simple_calendar"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/text_size_16"
+        android:textStyle="bold"
+        android:typeface="monospace" />
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:gravity="center_horizontal"
+        android:text="@string/selection_mode"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/text_size_16"
+        android:textStyle="bold"
+        android:typeface="monospace" />
 
-    </com.google.android.material.appbar.AppBarLayout>
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radioSelectionNone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/none" />
+
+        <RadioButton
+            android:id="@+id/radioSelectionSingle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/single" />
+
+        <RadioButton
+            android:id="@+id/radioSelectionMultiple"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/multiple" />
+
+        <RadioButton
+            android:id="@+id/radioSelectionRange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/range" />
+
+    </RadioGroup>
 
     <com.tejpratapsingh.recyclercalendar.views.SimpleRecyclerCalendarView
         android:id="@+id/calendarRecyclerView"

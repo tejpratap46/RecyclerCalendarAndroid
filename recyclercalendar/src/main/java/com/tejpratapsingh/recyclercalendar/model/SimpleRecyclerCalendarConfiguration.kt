@@ -30,8 +30,8 @@ class SimpleRecyclerCalendarConfiguration(
         }
     }
 
-    class SelectionModeSingle(selectedDate: Date) : SelectionMode() {
-        var selectedDate: Date = Date()
+    class SelectionModeSingle(selectedDate: Date?) : SelectionMode() {
+        var selectedDate: Date? = Date()
 
         init {
             this.selectionType = TYPE.SINGLE
