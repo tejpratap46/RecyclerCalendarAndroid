@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,44 +8,146 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="@dimen/text_size_20"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/buttonWeekCalendarActivity"
-            style="@style/Widget.AppCompat.Button.Colored"
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:text="@string/week_calendar"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="@string/example"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/text_size_16"
             android:textStyle="bold"
-            android:layout_weight="1" />
+            android:typeface="monospace" />
 
-        <Button
-            android:id="@+id/buttonMonthCalendarActivity"
-            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        <LinearLayout
+            android:id="@+id/layoutWeekCalendarActivity"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:text="@string/month_calendar"
-            android:textStyle="bold"
-            android:layout_weight="1" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_large"
+            android:layout_marginBottom="@dimen/margin_large"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/buttonPageCalendarActivity"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:text="@string/page_month_calendar"
-            android:textStyle="bold"
-            android:layout_weight="1" />
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@color/light_green_200"
+                android:padding="@dimen/margin_large"
+                android:src="@drawable/ic_calendar" />
 
-        <Button
-            android:id="@+id/buttonSimpleCalendarActivity"
-            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/margin_large"
+                android:text="@string/week_calendar"
+                android:textAllCaps="true"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/text_size_20"
+                android:textStyle="bold"
+                android:typeface="monospace" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutMonthCalendarActivity"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_large"
+            android:layout_marginBottom="@dimen/margin_large"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@color/light_blue_200"
+                android:padding="@dimen/margin_large"
+                android:src="@drawable/ic_calendar" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/margin_large"
+                android:gravity="center_vertical"
+                android:text="@string/month_calendar"
+                android:textAllCaps="true"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/text_size_20"
+                android:textStyle="bold"
+                android:typeface="monospace" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutPageCalendarActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_large"
+            android:layout_marginBottom="@dimen/margin_large"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@color/red_300"
+                android:padding="@dimen/margin_large"
+                android:src="@drawable/ic_calendar" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/margin_large"
+                android:gravity="center_vertical"
+                android:text="@string/page_month_calendar"
+                android:textAllCaps="true"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/text_size_20"
+                android:textStyle="bold"
+                android:typeface="monospace" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:text="@string/simple_calendar"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/text_size_16"
             android:textStyle="bold"
-            android:layout_weight="1" />
+            android:typeface="monospace" />
+
+        <LinearLayout
+            android:id="@+id/layoutSimpleCalendarActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_large"
+            android:layout_marginBottom="@dimen/margin_large"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@color/orange_300"
+                android:padding="@dimen/margin_large"
+                android:src="@drawable/ic_calendar" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/margin_large"
+                android:gravity="center_vertical"
+                android:text="@string/simple_calendar"
+                android:textAllCaps="true"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/text_size_20"
+                android:textStyle="bold"
+                android:typeface="monospace" />
+        </LinearLayout>
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

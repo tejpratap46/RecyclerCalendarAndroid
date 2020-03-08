@@ -2,7 +2,7 @@ package com.tejpratapsingh.recyclercalendaractivity
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.tejpratapsingh.recyclercalendaractivity.horizontal.HorizontalCalendarActivity
 import com.tejpratapsingh.recyclercalendaractivity.simple.SimpleRecyclerCalendarActivity
@@ -15,26 +15,26 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val buttonWeekCalendar: Button = findViewById(R.id.buttonWeekCalendarActivity);
-        buttonWeekCalendar.setOnClickListener {
+        val layoutWeekCalendar: LinearLayout = findViewById(R.id.layoutWeekCalendarActivity);
+        layoutWeekCalendar.setOnClickListener {
             val intent: Intent = Intent(this@MainActivity, HorizontalCalendarActivity::class.java)
             startActivity(intent)
         }
 
-        val buttonMonthCalendar: Button = findViewById(R.id.buttonMonthCalendarActivity);
-        buttonMonthCalendar.setOnClickListener {
+        val layoutMonthCalendar: LinearLayout = findViewById(R.id.layoutMonthCalendarActivity);
+        layoutMonthCalendar.setOnClickListener {
             val intent: Intent = Intent(this@MainActivity, VerticalCalendarActivity::class.java)
             startActivity(intent)
         }
 
-        val buttonPageCalendar: Button = findViewById(R.id.buttonPageCalendarActivity);
-        buttonPageCalendar.setOnClickListener {
+        val layoutPageCalendar: LinearLayout = findViewById(R.id.layoutPageCalendarActivity);
+        layoutPageCalendar.setOnClickListener {
             val intent: Intent = Intent(this@MainActivity, ViewPagerCalendarActivity::class.java)
             startActivity(intent)
         }
 
-        val buttonSimpleCalendar: Button = findViewById(R.id.buttonSimpleCalendarActivity);
-        buttonSimpleCalendar.setOnClickListener {
+        val layoutSimpleCalendar: LinearLayout = findViewById(R.id.layoutSimpleCalendarActivity);
+        layoutSimpleCalendar.setOnClickListener {
             val intent: Intent =
                 Intent(this@MainActivity, SimpleRecyclerCalendarActivity::class.java)
             startActivity(intent)
