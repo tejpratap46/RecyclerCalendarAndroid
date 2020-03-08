@@ -157,9 +157,9 @@ abstract class RecyclerCalendarBaseAdapter(
                 false
             )
         } else {
-            val mLinearLayoutManager =
+            val gridLayoutManager =
                 GridLayoutManager(recyclerView.context, 7)
-            mLinearLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                 override fun getSpanSize(position: Int): Int {
                     val spanSize: Int? = getItem(position)?.spanSize
                     if (spanSize != null) {
@@ -169,7 +169,7 @@ abstract class RecyclerCalendarBaseAdapter(
                 }
             }
 
-            recyclerView.layoutManager = mLinearLayoutManager
+            recyclerView.layoutManager = gridLayoutManager
         }
     }
 

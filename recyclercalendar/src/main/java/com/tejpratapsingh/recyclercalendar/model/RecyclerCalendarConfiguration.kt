@@ -2,7 +2,7 @@ package com.tejpratapsingh.recyclercalendar.model
 
 import java.util.*
 
-class RecyclerCalendarConfiguration(
+open class RecyclerCalendarConfiguration(
     val calenderViewType: CalenderViewType,
     val calendarLocale: Locale,
     val includeMonthHeader: Boolean

@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import androidx.recyclerview.widget.RecyclerView
 import com.tejpratapsingh.recyclercalendar.adapter.SimpleRecyclerCalendarAdapter
-import com.tejpratapsingh.recyclercalendar.model.RecyclerCalendarConfiguration
+import com.tejpratapsingh.recyclercalendar.model.SimpleRecyclerCalendarConfiguration
 import java.util.*
 
 class SimpleRecyclerCalendarView : RecyclerView {
@@ -22,7 +22,7 @@ class SimpleRecyclerCalendarView : RecyclerView {
     fun initialise(
         startDate: Date,
         endDate: Date,
-        configuration: RecyclerCalendarConfiguration,
+        configuration: SimpleRecyclerCalendarConfiguration,
         selectedDate: Date,
         dateSelectListener: SimpleRecyclerCalendarAdapter.OnDateSelected
     ) {
@@ -31,7 +31,6 @@ class SimpleRecyclerCalendarView : RecyclerView {
                 startDate = startDate,
                 endDate = endDate,
                 configuration = configuration,
-                selectedDate = selectedDate,
                 dateSelectListener = dateSelectListener
             )
 

@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.tejpratapsingh.recyclercalendar.adapter.SimpleRecyclerCalendarAdapter
 import com.tejpratapsingh.recyclercalendar.model.RecyclerCalendarConfiguration
+import com.tejpratapsingh.recyclercalendar.model.SimpleRecyclerCalendarConfiguration
 import com.tejpratapsingh.recyclercalendar.utilities.CalendarUtils
 import com.tejpratapsingh.recyclercalendar.views.SimpleRecyclerCalendarView
 import com.tejpratapsingh.recyclercalendaractivity.R
@@ -34,11 +35,19 @@ class SimpleRecyclerCalendarActivity : AppCompatActivity() {
         endCal.time = date
         endCal.add(Calendar.MONTH, 3)
 
-        val configuration: RecyclerCalendarConfiguration =
-            RecyclerCalendarConfiguration(
+        val selectionEndCal = Calendar.getInstance()
+        selectionEndCal.time = date
+        selectionEndCal.add(Calendar.DATE, 5)
+
+        val configuration: SimpleRecyclerCalendarConfiguration =
+            SimpleRecyclerCalendarConfiguration(
                 calenderViewType = RecyclerCalendarConfiguration.CalenderViewType.VERTICAL,
                 calendarLocale = Locale.getDefault(),
-                includeMonthHeader = true
+                includeMonthHeader = true,
+                selectionMode = SimpleRecyclerCalendarConfiguration.SelectionModeRange(
+                    selectionStartDate = Date(),
+                    selectionEndDate = selectionEndCal.time
+                )
             )
 
         calenderView.initialise(
@@ -48,7 +57,11 @@ class SimpleRecyclerCalendarActivity : AppCompatActivity() {
             date,
             object : SimpleRecyclerCalendarAdapter.OnDateSelected {
                 override fun onDateSelected(date: Date) {
-                    Toast.makeText(calenderView.context, "Date Selected: ${CalendarUtils.getGmt(date)}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        calenderView.context,
+                        "Date Selected: ${CalendarUtils.getGmt(date)}",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             })
     }
