@@ -23,7 +23,6 @@ class SimpleRecyclerCalendarView : RecyclerView {
         startDate: Date,
         endDate: Date,
         configuration: SimpleRecyclerCalendarConfiguration,
-        selectedDate: Date,
         dateSelectListener: SimpleRecyclerCalendarAdapter.OnDateSelected
     ) {
         val simpleRecyclerCalendarView: SimpleRecyclerCalendarAdapter =

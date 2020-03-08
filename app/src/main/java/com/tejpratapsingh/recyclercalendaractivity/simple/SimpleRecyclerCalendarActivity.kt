@@ -54,7 +54,6 @@ class SimpleRecyclerCalendarActivity : AppCompatActivity() {
             startCal.time,
             endCal.time,
             configuration,
-            date,
             object : SimpleRecyclerCalendarAdapter.OnDateSelected {
                 override fun onDateSelected(date: Date) {
                     Toast.makeText(
