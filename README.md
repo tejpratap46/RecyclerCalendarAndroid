@@ -147,26 +147,29 @@ val endCal = Calendar.getInstance()
 endCal.time = date  
 endCal.add(Calendar.MONTH, 3)  
   
-val configuration: RecyclerCalendarConfiguration =  
-    RecyclerCalendarConfiguration(  
-        calenderViewType = RecyclerCalendarConfiguration.CalenderViewType.VERTICAL,  // It will scroll vertically
-        calendarLocale = Locale.getDefault(),  // Calendar Locale will be UK
-        includeMonthHeader = true  // Month Header will be included
-  )  
-  
-// Call Initialise To Show Dates In Calendar
-calenderView.initialise(  
-    startCal.time,  
-    endCal.time,  
-    configuration,  
-    date,  // Pre selected Date
-    object : SimpleRecyclerCalendarAdapter.OnDateSelected {  
-        override fun onDateSelected(date: Date) {  
-	        // Callback when calendar date is selected
-            Toast.makeText(calenderView.context, "Date Selected: ${CalendarUtils.getGmt(date)}", Toast.LENGTH_LONG).show()  
-        }  
-    })
+val configuration: SimpleRecyclerCalendarConfiguration =
+            SimpleRecyclerCalendarConfiguration(
+                calenderViewType = RecyclerCalendarConfiguration.CalenderViewType.VERTICAL, // calendarViewType could be VERTICAL OR HORIZONTAL
+                calendarLocale = Locale.getDefault(),
+                includeMonthHeader = true,
+                selectionMode = SimpleRecyclerCalendarConfiguration.SelectionModeNone() // selectionMode could be one of [SelectionModeNone, SelectionModeSingle, SelectionModeMultiple, SelectionModeRange]
+            )
+
+        calenderView!!.initialise(
+            startDate,
+            endDate,
+            configuration,
+            object : SimpleRecyclerCalendarAdapter.OnDateSelected {
+                override fun onDateSelected(date: Date) {
+                    Toast.makeText(
+                        calenderView!!.context,
+                        "Date Selected: ${CalendarUtils.getGmt(date)}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            })
 ```
+*To know More about SimpleRecyclerCalendarView visit [SimpleRecyclerCalendarActivity](https://github.com/tejpratap46/RecyclerCalendarAndroid/blob/master/app/src/main/java/com/tejpratapsingh/recyclercalendaractivity/simple/SimpleRecyclerCalendarActivity.kt)*
 
 ## Donate
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/M4M413CJC)

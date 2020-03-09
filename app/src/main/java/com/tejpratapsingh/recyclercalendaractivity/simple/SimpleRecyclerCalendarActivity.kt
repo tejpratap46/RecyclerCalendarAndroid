@@ -44,6 +44,7 @@ class SimpleRecyclerCalendarActivity : AppCompatActivity() {
         val radioSelectRange: RadioButton = findViewById(R.id.radioSelectionRange)
 
         radioViewTypeVertical.setOnClickListener {
+            // Switch to Vertical View
             calendarViewType = RecyclerCalendarConfiguration.CalenderViewType.VERTICAL
 
             refreshCalendarCalendar(
@@ -53,6 +54,7 @@ class SimpleRecyclerCalendarActivity : AppCompatActivity() {
         }
 
         radioViewTypeHorizontal.setOnClickListener {
+            // Switch to Horizontal View
             calendarViewType = RecyclerCalendarConfiguration.CalenderViewType.HORIZONTAL
 
             refreshCalendarCalendar(
@@ -62,6 +64,7 @@ class SimpleRecyclerCalendarActivity : AppCompatActivity() {
         }
 
         radioSelectNone.setOnClickListener {
+            // Switch to Selection Mode NONE
             selectionMode = SimpleRecyclerCalendarConfiguration.SelectionModeNone()
 
             refreshCalendarCalendar(
@@ -71,7 +74,8 @@ class SimpleRecyclerCalendarActivity : AppCompatActivity() {
             )
         }
         radioSelectSingle.setOnClickListener {
-            selectionMode = SimpleRecyclerCalendarConfiguration.SelectionModeSingle(Date())
+            // Switch to Selection Mode SINGLE
+            selectionMode = SimpleRecyclerCalendarConfiguration.SelectionModeSingle(selectedDate = Date())
 
             refreshCalendarCalendar(
                 startDate = startCal.time,
@@ -79,8 +83,9 @@ class SimpleRecyclerCalendarActivity : AppCompatActivity() {
             )
         }
         radioSelectMultiple.setOnClickListener {
+            // Switch to Selection Mode MULTIPLE
             selectionMode = SimpleRecyclerCalendarConfiguration.SelectionModeMultiple(
-                HashMap()
+                selectionStartDateList = HashMap()
             )
 
             refreshCalendarCalendar(
@@ -89,7 +94,9 @@ class SimpleRecyclerCalendarActivity : AppCompatActivity() {
             )
         }
         radioSelectRange.setOnClickListener {
+            // Switch to Selection Mode RANGE
 
+            // Range Starts from todayDate and ends on 5 days from today
             val selectionEndCal = Calendar.getInstance()
             selectionEndCal.time = date
             selectionEndCal.add(Calendar.DATE, 5)
