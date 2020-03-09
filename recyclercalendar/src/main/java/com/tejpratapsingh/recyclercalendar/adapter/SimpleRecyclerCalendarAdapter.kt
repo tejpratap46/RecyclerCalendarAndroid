@@ -94,7 +94,7 @@ class SimpleRecyclerCalendarAdapter(
             val calendarDate = Calendar.getInstance()
             calendarDate.time = calendarItem.date
 
-            val stringCalendarTimeFormat: String =
+            val currentDateString: String =
                 CalendarUtils.dateStringFromFormat(
                     locale = configuration.calendarLocale,
                     date = calendarItem.date,
@@ -102,13 +102,13 @@ class SimpleRecyclerCalendarAdapter(
                 )
                     ?: ""
 
-            val day: String = CalendarUtils.dateStringFromFormat(
+            val currentWeekDay: String = CalendarUtils.dateStringFromFormat(
                 locale = configuration.calendarLocale,
                 date = calendarDate.time,
                 format = CalendarUtils.DISPLAY_WEEK_DAY_FORMAT
             ) ?: ""
 
-            monthViewHolder.textViewDay.text = day
+            monthViewHolder.textViewDay.text = currentWeekDay
 
             monthViewHolder.textViewDate.text =
                 CalendarUtils.dateStringFromFormat(
@@ -130,7 +130,7 @@ class SimpleRecyclerCalendarAdapter(
                                 format = CalendarUtils.DB_DATE_FORMAT
                             ) ?: ""
 
-                        if (stringCalendarTimeFormat == stringSelectedTimeFormat) {
+                        if (currentDateString == stringSelectedTimeFormat) {
                             highlightDate(monthViewHolder, POSITION.NONE)
                         }
 
@@ -146,24 +146,44 @@ class SimpleRecyclerCalendarAdapter(
                     val selectionStartDateList: HashMap<String, Date> =
                         (configuration.selectionMode as SimpleRecyclerCalendarConfiguration.SelectionModeMultiple).selectionStartDateList
 
-                    if (selectionStartDateList[stringCalendarTimeFormat] != null) {
-                        val stringSelectedTimeFormat: String =
-                            CalendarUtils.dateStringFromFormat(
-                                locale = configuration.calendarLocale,
-                                date = selectionStartDateList[stringCalendarTimeFormat]!!,
-                                format = CalendarUtils.DB_DATE_FORMAT
-                            ) ?: ""
+                    val calenderMultipleSelection: Calendar = Calendar.getInstance(configuration.calendarLocale)
+                    calenderMultipleSelection.time = calendarItem.date
+                    calenderMultipleSelection.add(Calendar.DATE, -1)
 
-                        if (stringCalendarTimeFormat == stringSelectedTimeFormat) {
+                    val yesterdayDateString: String =
+                        CalendarUtils.dateStringFromFormat(
+                            locale = configuration.calendarLocale,
+                            date = calenderMultipleSelection.time,
+                            format = CalendarUtils.DB_DATE_FORMAT
+                        )
+                            ?: ""
+
+                    calenderMultipleSelection.add(Calendar.DATE, 2)
+                    val tomorrowDateString: String =
+                        CalendarUtils.dateStringFromFormat(
+                            locale = configuration.calendarLocale,
+                            date = calenderMultipleSelection.time,
+                            format = CalendarUtils.DB_DATE_FORMAT
+                        )
+                            ?: ""
+
+                    if (selectionStartDateList[currentDateString] != null) {
+                        if (selectionStartDateList[yesterdayDateString] != null && selectionStartDateList[tomorrowDateString] != null) {
+                            highlightDate(monthViewHolder, POSITION.MIDDLE)
+                        } else if (selectionStartDateList[yesterdayDateString] != null) {
+                            highlightDate(monthViewHolder, POSITION.END)
+                        } else if (selectionStartDateList[tomorrowDateString] != null) {
+                            highlightDate(monthViewHolder, POSITION.START)
+                        } else {
                             highlightDate(monthViewHolder, POSITION.NONE)
                         }
                     }
 
                     monthViewHolder.itemView.setOnClickListener {
-                        if (selectionStartDateList[stringCalendarTimeFormat] == null) {
-                            selectionStartDateList[stringCalendarTimeFormat] = calendarItem.date
+                        if (selectionStartDateList[currentDateString] == null) {
+                            selectionStartDateList[currentDateString] = calendarItem.date
                         } else {
-                            selectionStartDateList.remove(stringCalendarTimeFormat)
+                            selectionStartDateList.remove(currentDateString)
                         }
                         (configuration.selectionMode as SimpleRecyclerCalendarConfiguration.SelectionModeMultiple).selectionStartDateList =
                             selectionStartDateList
@@ -178,7 +198,7 @@ class SimpleRecyclerCalendarAdapter(
                     val endDate: Date =
                         (configuration.selectionMode as SimpleRecyclerCalendarConfiguration.SelectionModeRange).selectionEndDate
 
-                    val selectedDateInt: Int = stringCalendarTimeFormat.toInt()
+                    val selectedDateInt: Int = currentDateString.toInt()
 
                     val startDateInt: Int = (CalendarUtils.dateStringFromFormat(
                         locale = configuration.calendarLocale,
