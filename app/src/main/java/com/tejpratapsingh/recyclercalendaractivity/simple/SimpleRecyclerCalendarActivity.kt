@@ -15,11 +15,16 @@ import kotlin.collections.HashMap
 
 class SimpleRecyclerCalendarActivity : AppCompatActivity() {
 
+    private var calenderView: SimpleRecyclerCalendarView? = null
+    private var selectionMode: SimpleRecyclerCalendarConfiguration.SelectionMode? = null
+    private var calendarViewType: RecyclerCalendarConfiguration.CalenderViewType =
+        RecyclerCalendarConfiguration.CalenderViewType.VERTICAL
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_simple_recycler_calendar)
 
-        val calenderView: SimpleRecyclerCalendarView = findViewById(R.id.calendarRecyclerView)
+        calenderView = findViewById(R.id.calendarRecyclerView)
 
         val date = Date()
         date.time = System.currentTimeMillis()
@@ -30,114 +35,104 @@ class SimpleRecyclerCalendarActivity : AppCompatActivity() {
         endCal.time = date
         endCal.add(Calendar.MONTH, 3)
 
+        val radioViewTypeVertical: RadioButton = findViewById(R.id.radioViewTypeVertical)
+        val radioViewTypeHorizontal: RadioButton = findViewById(R.id.radioViewTypeHorizontal)
+
         val radioSelectNone: RadioButton = findViewById(R.id.radioSelectionNone)
         val radioSelectSingle: RadioButton = findViewById(R.id.radioSelectionSingle)
         val radioSelectMultiple: RadioButton = findViewById(R.id.radioSelectionMultiple)
         val radioSelectRange: RadioButton = findViewById(R.id.radioSelectionRange)
 
-        radioSelectNone.setOnClickListener {
-            val configuration: SimpleRecyclerCalendarConfiguration =
-                SimpleRecyclerCalendarConfiguration(
-                    calenderViewType = RecyclerCalendarConfiguration.CalenderViewType.VERTICAL,
-                    calendarLocale = Locale.getDefault(),
-                    includeMonthHeader = true,
-                    selectionMode = SimpleRecyclerCalendarConfiguration.SelectionModeNone()
-                )
+        radioViewTypeVertical.setOnClickListener {
+            calendarViewType = RecyclerCalendarConfiguration.CalenderViewType.VERTICAL
 
-            calenderView.initialise(
-                startCal.time,
-                endCal.time,
-                configuration,
-                object : SimpleRecyclerCalendarAdapter.OnDateSelected {
-                    override fun onDateSelected(date: Date) {
-                        Toast.makeText(
-                            calenderView.context,
-                            "Date Selected: ${CalendarUtils.getGmt(date)}",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
-                })
+            refreshCalendarCalendar(
+                startDate = startCal.time,
+                endDate = endCal.time
+            )
+        }
+
+        radioViewTypeHorizontal.setOnClickListener {
+            calendarViewType = RecyclerCalendarConfiguration.CalenderViewType.HORIZONTAL
+
+            refreshCalendarCalendar(
+                startDate = startCal.time,
+                endDate = endCal.time
+            )
+        }
+
+        radioSelectNone.setOnClickListener {
+            selectionMode = SimpleRecyclerCalendarConfiguration.SelectionModeNone()
+
+            refreshCalendarCalendar(
+                startDate = startCal.time,
+                endDate = endCal.time
+
+            )
         }
         radioSelectSingle.setOnClickListener {
-            val configuration: SimpleRecyclerCalendarConfiguration =
-                SimpleRecyclerCalendarConfiguration(
-                    calenderViewType = RecyclerCalendarConfiguration.CalenderViewType.VERTICAL,
-                    calendarLocale = Locale.getDefault(),
-                    includeMonthHeader = true,
-                    selectionMode = SimpleRecyclerCalendarConfiguration.SelectionModeSingle(Date())
-                )
+            selectionMode = SimpleRecyclerCalendarConfiguration.SelectionModeSingle(Date())
 
-            calenderView.initialise(
-                startCal.time,
-                endCal.time,
-                configuration,
-                object : SimpleRecyclerCalendarAdapter.OnDateSelected {
-                    override fun onDateSelected(date: Date) {
-                        Toast.makeText(
-                            calenderView.context,
-                            "Date Selected: ${CalendarUtils.getGmt(date)}",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
-                })
+            refreshCalendarCalendar(
+                startDate = startCal.time,
+                endDate = endCal.time
+            )
         }
         radioSelectMultiple.setOnClickListener {
-            val configuration: SimpleRecyclerCalendarConfiguration =
-                SimpleRecyclerCalendarConfiguration(
-                    calenderViewType = RecyclerCalendarConfiguration.CalenderViewType.VERTICAL,
-                    calendarLocale = Locale.getDefault(),
-                    includeMonthHeader = true,
-                    selectionMode = SimpleRecyclerCalendarConfiguration.SelectionModeMultiple(
-                        HashMap()
-                    )
-                )
+            selectionMode = SimpleRecyclerCalendarConfiguration.SelectionModeMultiple(
+                HashMap()
+            )
 
-            calenderView.initialise(
-                startCal.time,
-                endCal.time,
-                configuration,
-                object : SimpleRecyclerCalendarAdapter.OnDateSelected {
-                    override fun onDateSelected(date: Date) {
-                        Toast.makeText(
-                            calenderView.context,
-                            "Date Selected: ${CalendarUtils.getGmt(date)}",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
-                })
+            refreshCalendarCalendar(
+                startDate = startCal.time,
+                endDate = endCal.time
+            )
         }
         radioSelectRange.setOnClickListener {
+
             val selectionEndCal = Calendar.getInstance()
             selectionEndCal.time = date
             selectionEndCal.add(Calendar.DATE, 5)
 
-            val configuration: SimpleRecyclerCalendarConfiguration =
-                SimpleRecyclerCalendarConfiguration(
-                    calenderViewType = RecyclerCalendarConfiguration.CalenderViewType.VERTICAL,
-                    calendarLocale = Locale.getDefault(),
-                    includeMonthHeader = true,
-                    selectionMode = SimpleRecyclerCalendarConfiguration.SelectionModeRange(
-                        selectionStartDate = Date(),
-                        selectionEndDate = selectionEndCal.time
-                    )
-                )
+            selectionMode = SimpleRecyclerCalendarConfiguration.SelectionModeRange(
+                selectionStartDate = Date(),
+                selectionEndDate = selectionEndCal.time
+            )
 
-            calenderView.initialise(
-                startCal.time,
-                endCal.time,
-                configuration,
-                object : SimpleRecyclerCalendarAdapter.OnDateSelected {
-                    override fun onDateSelected(date: Date) {
-                        Toast.makeText(
-                            calenderView.context,
-                            "Date Selected: ${CalendarUtils.getGmt(date)}",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
-                })
+            refreshCalendarCalendar(
+                startDate = startCal.time,
+                endDate = endCal.time
+            )
         }
 
         // Set None As Default
         radioSelectNone.callOnClick()
+    }
+
+    private fun refreshCalendarCalendar(
+        startDate: Date,
+        endDate: Date
+    ) {
+        val configuration: SimpleRecyclerCalendarConfiguration =
+            SimpleRecyclerCalendarConfiguration(
+                calenderViewType = calendarViewType,
+                calendarLocale = Locale.getDefault(),
+                includeMonthHeader = true,
+                selectionMode = selectionMode!!
+            )
+
+        calenderView!!.initialise(
+            startDate,
+            endDate,
+            configuration,
+            object : SimpleRecyclerCalendarAdapter.OnDateSelected {
+                override fun onDateSelected(date: Date) {
+                    Toast.makeText(
+                        calenderView!!.context,
+                        "Date Selected: ${CalendarUtils.getGmt(date)}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            })
     }
 }
