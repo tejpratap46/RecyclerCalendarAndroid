@@ -148,6 +148,16 @@
                 android:typeface="monospace" />
         </LinearLayout>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="@string/calendar_icon_license"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/text_size_16"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            android:typeface="monospace" />
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>
