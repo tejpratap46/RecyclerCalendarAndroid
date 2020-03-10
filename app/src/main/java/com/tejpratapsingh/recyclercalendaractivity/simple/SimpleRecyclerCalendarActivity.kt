@@ -1,9 +1,13 @@
 package com.tejpratapsingh.recyclercalendaractivity.simple
 
 import android.os.Bundle
+import android.view.View
+import android.widget.ImageButton
+import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.tejpratapsingh.recyclercalendar.adapter.SimpleRecyclerCalendarAdapter
 import com.tejpratapsingh.recyclercalendar.model.RecyclerCalendarConfiguration
 import com.tejpratapsingh.recyclercalendar.model.SimpleRecyclerCalendarConfiguration
@@ -34,6 +38,17 @@ class SimpleRecyclerCalendarActivity : AppCompatActivity() {
         val endCal = Calendar.getInstance()
         endCal.time = date
         endCal.add(Calendar.MONTH, 3)
+
+        val buttonSetting: ImageButton = findViewById(R.id.buttonSimpleSettings)
+        val layoutSettingContainer: LinearLayout = findViewById(R.id.layoutSettingContainer)
+
+        buttonSetting.setOnClickListener {
+            if (layoutSettingContainer.isVisible) {
+                layoutSettingContainer.visibility = View.GONE
+            } else {
+                layoutSettingContainer.visibility = View.VISIBLE
+            }
+        }
 
         val radioViewTypeVertical: RadioButton = findViewById(R.id.radioViewTypeVertical)
         val radioViewTypeHorizontal: RadioButton = findViewById(R.id.radioViewTypeHorizontal)

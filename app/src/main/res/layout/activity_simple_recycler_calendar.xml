@@ -6,91 +6,113 @@
     android:orientation="vertical"
     tools:context=".simple.SimpleRecyclerCalendarActivity">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_vertical_margin"
-        android:gravity="center_horizontal"
-        android:text="@string/simple_calendar"
-        android:textColor="@color/colorAccent"
-        android:textSize="@dimen/text_size_16"
-        android:textStyle="bold"
-        android:typeface="monospace" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="@string/selection_mode"
-        android:textColor="@color/colorAccent"
-        android:textSize="@dimen/text_size_16"
-        android:textStyle="bold"
-        android:typeface="monospace" />
-
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
         android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/radioViewTypeVertical"
-            android:layout_width="wrap_content"
+        <TextView
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="@string/vertical" />
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/simple_calendar"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/text_size_16"
+            android:textStyle="bold"
+            android:typeface="monospace" />
 
-        <RadioButton
-            android:id="@+id/radioViewTypeHorizontal"
+        <ImageButton
+            android:id="@+id/buttonSimpleSettings"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/horizontal" />
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_action_setting"
+            android:tint="@color/colorAccent" />
+    </LinearLayout>
 
-    </RadioGroup>
-
-    <TextView
+    <LinearLayout
+        android:id="@+id/layoutSettingContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="@string/selection_mode"
-        android:textColor="@color/colorAccent"
-        android:textSize="@dimen/text_size_16"
-        android:textStyle="bold"
-        android:typeface="monospace" />
+        android:orientation="vertical">
 
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:layout_marginBottom="@dimen/margin_large"
-        android:orientation="horizontal">
-
-        <RadioButton
-            android:id="@+id/radioSelectionNone"
-            android:layout_width="wrap_content"
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="@string/none" />
+            android:gravity="center_horizontal"
+            android:text="@string/selection_mode"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/text_size_16"
+            android:textStyle="bold"
+            android:typeface="monospace" />
 
-        <RadioButton
-            android:id="@+id/radioSelectionSingle"
-            android:layout_width="wrap_content"
+        <RadioGroup
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/single" />
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/radioSelectionMultiple"
-            android:layout_width="wrap_content"
+            <RadioButton
+                android:id="@+id/radioViewTypeVertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/vertical" />
+
+            <RadioButton
+                android:id="@+id/radioViewTypeHorizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/horizontal" />
+
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/multiple" />
+            android:gravity="center_horizontal"
+            android:text="@string/selection_mode"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/text_size_16"
+            android:textStyle="bold"
+            android:typeface="monospace" />
 
-        <RadioButton
-            android:id="@+id/radioSelectionRange"
-            android:layout_width="wrap_content"
+        <RadioGroup
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/range" />
+            android:layout_marginBottom="@dimen/margin_large"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
 
-    </RadioGroup>
+            <RadioButton
+                android:id="@+id/radioSelectionNone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/none" />
+
+            <RadioButton
+                android:id="@+id/radioSelectionSingle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/single" />
+
+            <RadioButton
+                android:id="@+id/radioSelectionMultiple"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/multiple" />
+
+            <RadioButton
+                android:id="@+id/radioSelectionRange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/range" />
+
+        </RadioGroup>
+    </LinearLayout>
 
     <com.tejpratapsingh.recyclercalendar.views.SimpleRecyclerCalendarView
         android:id="@+id/calendarRecyclerView"
