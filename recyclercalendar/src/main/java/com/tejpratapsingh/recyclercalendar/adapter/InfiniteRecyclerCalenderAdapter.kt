@@ -125,7 +125,6 @@ class InfiniteRecyclerCalenderAdapter(
                                 )
                         }
                         is InfiniteRecyclerCalendarConfiguration.SelectionModeRange -> {
-                            Log.d("SelectionModeRange", "SelectionModeRange")
                             holder.simpleRecyclerCalendarView.getConfiguration()?.let {
                                 val selectionModeRange: SimpleRecyclerCalendarConfiguration.SelectionModeRange =
                                     it.selectionMode as SimpleRecyclerCalendarConfiguration.SelectionModeRange

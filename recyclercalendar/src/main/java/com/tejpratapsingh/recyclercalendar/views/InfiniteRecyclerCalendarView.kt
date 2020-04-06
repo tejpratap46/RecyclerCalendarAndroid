@@ -22,6 +22,9 @@ class InfiniteRecyclerCalendarView : RecyclerView {
         configuration: InfiniteRecyclerCalendarConfiguration,
         dateSelectListener: InfiniteRecyclerCalenderAdapter.OnDateSelected
     ) {
+        this.setItemViewCacheSize(10)
+        this.setHasFixedSize(true)
+
         val infiniteRecyclerCalendarAdapter: InfiniteRecyclerCalenderAdapter =
             InfiniteRecyclerCalenderAdapter(
                 configuration = configuration,
