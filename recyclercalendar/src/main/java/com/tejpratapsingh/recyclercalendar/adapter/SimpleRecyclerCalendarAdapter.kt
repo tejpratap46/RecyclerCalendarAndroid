@@ -32,7 +32,7 @@ class SimpleRecyclerCalendarAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view: View = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_simple_calendar, parent, false)
-        return MonthCalendarViewHolder(
+        return SimpleCalendarViewHolder(
             view
         )
     }
@@ -42,24 +42,24 @@ class SimpleRecyclerCalendarAdapter(
         position: Int,
         calendarItem: RecyclerCalenderViewItem
     ) {
-        val monthViewHolder: MonthCalendarViewHolder = holder as MonthCalendarViewHolder
-        val context: Context = monthViewHolder.itemView.context
-        monthViewHolder.itemView.visibility = View.VISIBLE
+        val simpleViewHolder: SimpleCalendarViewHolder = holder as SimpleCalendarViewHolder
+        val context: Context = simpleViewHolder.itemView.context
+        simpleViewHolder.itemView.visibility = View.VISIBLE
 
-        monthViewHolder.itemView.setOnClickListener(null)
+        simpleViewHolder.itemView.setOnClickListener(null)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            monthViewHolder.itemView.background = null
+            simpleViewHolder.itemView.background = null
         } else {
-            monthViewHolder.itemView.setBackgroundDrawable(null)
+            simpleViewHolder.itemView.setBackgroundDrawable(null)
         }
-        monthViewHolder.textViewDay.setTextColor(
+        simpleViewHolder.textViewDay.setTextColor(
             ContextCompat.getColor(
                 context,
                 R.color.colorBlack
             )
         )
-        monthViewHolder.textViewDate.setTextColor(
+        simpleViewHolder.textViewDate.setTextColor(
             ContextCompat.getColor(
                 context,
                 R.color.colorBlack
@@ -77,19 +77,19 @@ class SimpleRecyclerCalendarAdapter(
             ) ?: ""
             val year = selectedCalendar[Calendar.YEAR].toLong()
 
-            monthViewHolder.textViewDay.text = year.toString()
-            monthViewHolder.textViewDate.text = month
+            simpleViewHolder.textViewDay.text = year.toString()
+            simpleViewHolder.textViewDate.text = month
 
-            monthViewHolder.itemView.setOnClickListener(null)
+            simpleViewHolder.itemView.setOnClickListener(null)
 
-            monthViewHolder.layoutContainer.layoutParams = LinearLayout.LayoutParams(
+            simpleViewHolder.layoutContainer.layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
         } else if (calendarItem.isEmpty) {
-            monthViewHolder.itemView.visibility = View.GONE
-            monthViewHolder.textViewDay.text = ""
-            monthViewHolder.textViewDate.text = ""
+            simpleViewHolder.itemView.visibility = View.GONE
+            simpleViewHolder.textViewDay.text = ""
+            simpleViewHolder.textViewDate.text = ""
         } else {
             val calendarDate = Calendar.getInstance()
             calendarDate.time = calendarItem.date
@@ -108,9 +108,9 @@ class SimpleRecyclerCalendarAdapter(
                 format = CalendarUtils.DISPLAY_WEEK_DAY_FORMAT
             ) ?: ""
 
-            monthViewHolder.textViewDay.text = currentWeekDay
+            simpleViewHolder.textViewDay.text = currentWeekDay
 
-            monthViewHolder.textViewDate.text =
+            simpleViewHolder.textViewDate.text =
                 CalendarUtils.dateStringFromFormat(
                     locale = configuration.calendarLocale,
                     date = calendarDate.time,
@@ -131,10 +131,10 @@ class SimpleRecyclerCalendarAdapter(
                             ) ?: ""
 
                         if (currentDateString == stringSelectedTimeFormat) {
-                            highlightDate(monthViewHolder, POSITION.NONE)
+                            highlightDate(simpleViewHolder, POSITION.NONE)
                         }
 
-                        monthViewHolder.itemView.setOnClickListener {
+                        simpleViewHolder.itemView.setOnClickListener {
                             (configuration.selectionMode as SimpleRecyclerCalendarConfiguration.SelectionModeSingle).selectedDate =
                                 calendarItem.date
                             dateSelectListener.onDateSelected(calendarItem.date)
@@ -167,19 +167,20 @@ class SimpleRecyclerCalendarAdapter(
                         )
                             ?: ""
 
+                    // Set Highlight background based on position of selected date
                     if (selectionStartDateList[currentDateString] != null) {
                         if (selectionStartDateList[yesterdayDateString] != null && selectionStartDateList[tomorrowDateString] != null) {
-                            highlightDate(monthViewHolder, POSITION.MIDDLE)
+                            highlightDate(simpleViewHolder, POSITION.MIDDLE)
                         } else if (selectionStartDateList[yesterdayDateString] != null) {
-                            highlightDate(monthViewHolder, POSITION.END)
+                            highlightDate(simpleViewHolder, POSITION.END)
                         } else if (selectionStartDateList[tomorrowDateString] != null) {
-                            highlightDate(monthViewHolder, POSITION.START)
+                            highlightDate(simpleViewHolder, POSITION.START)
                         } else {
-                            highlightDate(monthViewHolder, POSITION.NONE)
+                            highlightDate(simpleViewHolder, POSITION.NONE)
                         }
                     }
 
-                    monthViewHolder.itemView.setOnClickListener {
+                    simpleViewHolder.itemView.setOnClickListener {
                         if (selectionStartDateList[currentDateString] == null) {
                             selectionStartDateList[currentDateString] = calendarItem.date
                         } else {
@@ -215,18 +216,18 @@ class SimpleRecyclerCalendarAdapter(
                     if (selectedDateInt in startDateInt..endDateInt) {
                         when (selectedDateInt) {
                             startDateInt -> {
-                                highlightDate(monthViewHolder, POSITION.START)
+                                highlightDate(simpleViewHolder, POSITION.START)
                             }
                             endDateInt -> {
-                                highlightDate(monthViewHolder, POSITION.END)
+                                highlightDate(simpleViewHolder, POSITION.END)
                             }
                             else -> {
-                                highlightDate(monthViewHolder, POSITION.MIDDLE)
+                                highlightDate(simpleViewHolder, POSITION.MIDDLE)
                             }
                         }
                     }
 
-                    monthViewHolder.itemView.setOnClickListener {
+                    simpleViewHolder.itemView.setOnClickListener {
                         if (selectedDateInt < startDateInt) {
                             (configuration.selectionMode as SimpleRecyclerCalendarConfiguration.SelectionModeRange).selectionStartDate =
                                 calendarItem.date
@@ -250,7 +251,7 @@ class SimpleRecyclerCalendarAdapter(
                 }
                 else -> {
                     // Else None
-                    monthViewHolder.itemView.setOnClickListener {
+                    simpleViewHolder.itemView.setOnClickListener {
                         dateSelectListener.onDateSelected(calendarItem.date)
                     }
                 }
@@ -258,14 +259,14 @@ class SimpleRecyclerCalendarAdapter(
         }
     }
 
-    class MonthCalendarViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class SimpleCalendarViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val layoutContainer: LinearLayout =
             itemView.findViewById(R.id.layoutCalenderItemSimpleContainer)
         val textViewDay: TextView = itemView.findViewById(R.id.textCalenderItemSimpleDay)
         val textViewDate: TextView = itemView.findViewById(R.id.textCalenderItemSimpleDate)
     }
 
-    private fun highlightDate(monthViewHolder: MonthCalendarViewHolder, position: POSITION) {
+    private fun highlightDate(monthViewHolder: SimpleCalendarViewHolder, position: POSITION) {
         val context: Context = monthViewHolder.itemView.context
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -282,12 +283,11 @@ class SimpleRecyclerCalendarAdapter(
                         R.drawable.layout_round_corner_right_filled
                     )
             } else if (position == POSITION.MIDDLE) {
-                monthViewHolder.itemView.setBackgroundColor(
-                    ContextCompat.getColor(
+                monthViewHolder.itemView.background =
+                    ContextCompat.getDrawable(
                         context,
-                        R.color.blue_50
+                        R.drawable.layout_round_corner_middle_filled
                     )
-                )
             } else if (position == POSITION.NONE) {
                 monthViewHolder.itemView.background =
                     ContextCompat.getDrawable(
@@ -311,10 +311,10 @@ class SimpleRecyclerCalendarAdapter(
                     )
                 )
             } else if (position == POSITION.MIDDLE) {
-                monthViewHolder.itemView.setBackgroundColor(
-                    ContextCompat.getColor(
+                monthViewHolder.itemView.setBackgroundDrawable(
+                    ContextCompat.getDrawable(
                         context,
-                        R.color.blue_50
+                        R.drawable.layout_round_corner_middle_filled
                     )
                 )
             } else if (position == POSITION.NONE) {
@@ -327,32 +327,17 @@ class SimpleRecyclerCalendarAdapter(
             }
         }
 
-        if (position == POSITION.MIDDLE) {
-            monthViewHolder.textViewDay.setTextColor(
-                ContextCompat.getColor(
-                    context,
-                    R.color.colorBlack
-                )
+        monthViewHolder.textViewDay.setTextColor(
+            ContextCompat.getColor(
+                context,
+                R.color.colorWhite
             )
-            monthViewHolder.textViewDate.setTextColor(
-                ContextCompat.getColor(
-                    context,
-                    R.color.colorBlack
-                )
+        )
+        monthViewHolder.textViewDate.setTextColor(
+            ContextCompat.getColor(
+                context,
+                R.color.colorWhite
             )
-        } else {
-            monthViewHolder.textViewDay.setTextColor(
-                ContextCompat.getColor(
-                    context,
-                    R.color.colorWhite
-                )
-            )
-            monthViewHolder.textViewDate.setTextColor(
-                ContextCompat.getColor(
-                    context,
-                    R.color.colorWhite
-                )
-            )
-        }
+        )
     }
 }

@@ -18,7 +18,7 @@ abstract class RecyclerCalendarBaseAdapter(
 
     var mHandlerThread: MyHandlerThread =
         MyHandlerThread(
-            RecyclerCalendarBaseAdapter::class.java.getSimpleName()
+            RecyclerCalendarBaseAdapter::class.java.simpleName
         )
     private val handler = Handler()
 

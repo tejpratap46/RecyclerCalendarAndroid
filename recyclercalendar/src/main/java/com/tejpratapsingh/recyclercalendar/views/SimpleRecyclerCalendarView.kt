@@ -9,6 +9,8 @@ import java.util.*
 
 class SimpleRecyclerCalendarView : RecyclerView {
 
+    private var configuration: SimpleRecyclerCalendarConfiguration? = null
+
     constructor(context: Context) : super(context)
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
@@ -25,6 +27,8 @@ class SimpleRecyclerCalendarView : RecyclerView {
         configuration: SimpleRecyclerCalendarConfiguration,
         dateSelectListener: SimpleRecyclerCalendarAdapter.OnDateSelected
     ) {
+        this.configuration = configuration
+
         val simpleRecyclerCalendarView: SimpleRecyclerCalendarAdapter =
             SimpleRecyclerCalendarAdapter(
                 startDate = startDate,
@@ -34,5 +38,9 @@ class SimpleRecyclerCalendarView : RecyclerView {
             )
 
         adapter = simpleRecyclerCalendarView
+    }
+
+    fun getConfiguration(): SimpleRecyclerCalendarConfiguration? {
+        return configuration
     }
 }

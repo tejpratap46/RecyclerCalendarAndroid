@@ -148,6 +148,35 @@
                 android:typeface="monospace" />
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/layoutInfiniteCalendarActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_large"
+            android:layout_marginBottom="@dimen/margin_large"
+            android:background="?android:attr/selectableItemBackground"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@color/purple_300"
+                android:padding="@dimen/margin_large"
+                android:src="@drawable/ic_calendar" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/margin_large"
+                android:gravity="center_vertical"
+                android:text="@string/infinite_calendar"
+                android:textAllCaps="true"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/text_size_20"
+                android:textStyle="bold"
+                android:typeface="monospace" />
+        </LinearLayout>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

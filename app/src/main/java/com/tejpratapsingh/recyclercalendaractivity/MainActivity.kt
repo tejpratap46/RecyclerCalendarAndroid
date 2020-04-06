@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.tejpratapsingh.recyclercalendaractivity.horizontal.HorizontalCalendarActivity
+import com.tejpratapsingh.recyclercalendaractivity.simple.InfiniteRecyclerCalendarActivity
 import com.tejpratapsingh.recyclercalendaractivity.simple.SimpleRecyclerCalendarActivity
 import com.tejpratapsingh.recyclercalendaractivity.vertical.VerticalCalendarActivity
 import com.tejpratapsingh.recyclercalendaractivity.viewpager.ViewPagerCalendarActivity
@@ -37,6 +38,14 @@ class MainActivity : AppCompatActivity() {
         layoutSimpleCalendar.setOnClickListener {
             val intent: Intent =
                 Intent(this@MainActivity, SimpleRecyclerCalendarActivity::class.java)
+            startActivity(intent)
+        }
+
+        val layoutInfiniteCalendar: LinearLayout =
+            findViewById(R.id.layoutInfiniteCalendarActivity);
+        layoutInfiniteCalendar.setOnClickListener {
+            val intent: Intent =
+                Intent(this@MainActivity, InfiniteRecyclerCalendarActivity::class.java)
             startActivity(intent)
         }
     }

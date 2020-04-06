@@ -12,6 +12,9 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".simple.InfiniteRecyclerCalendarActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".simple.SimpleRecyclerCalendarActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
