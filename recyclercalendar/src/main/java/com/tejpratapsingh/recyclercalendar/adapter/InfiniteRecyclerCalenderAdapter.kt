@@ -4,8 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.*
 import com.tejpratapsingh.recyclercalendar.R
 import com.tejpratapsingh.recyclercalendar.model.InfiniteRecyclerCalendarConfiguration
 import com.tejpratapsingh.recyclercalendar.model.RecyclerCalendarConfiguration
@@ -22,6 +21,8 @@ class InfiniteRecyclerCalenderAdapter(
     interface OnDateSelected {
         fun onDateSelected(date: Date)
     }
+
+    private var snapHelper: SnapHelper = PagerSnapHelper()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -117,7 +118,11 @@ class InfiniteRecyclerCalenderAdapter(
                         is InfiniteRecyclerCalendarConfiguration.SelectionModeMultiple -> {
                             val selectionModeMultiple: InfiniteRecyclerCalendarConfiguration.SelectionModeMultiple =
                                 configuration.selectionMode as InfiniteRecyclerCalendarConfiguration.SelectionModeMultiple
-                            selectionModeMultiple.selectionStartDateList[currentDateString] = date
+                            if (selectionModeMultiple.selectionStartDateList[currentDateString] != null) {
+                                selectionModeMultiple.selectionStartDateList[currentDateString] = date
+                            } else {
+                                selectionModeMultiple.selectionStartDateList.remove(currentDateString)
+                            }
 
                             simpleRecyclerCalendarConfiguration.selectionMode =
                                 SimpleRecyclerCalendarConfiguration.SelectionModeMultiple(
@@ -143,7 +148,7 @@ class InfiniteRecyclerCalenderAdapter(
 
                     dateSelectListener.onDateSelected(date)
 
-                    notifyDataSetChanged()
+//                    notifyDataSetChanged()
                 }
             })
     }
@@ -165,12 +170,21 @@ class InfiniteRecyclerCalenderAdapter(
                 LinearLayoutManager.HORIZONTAL,
                 false
             )
+
+            recyclerView.onFlingListener = null
+
+            snapHelper = PagerSnapHelper() // Or LinearSnapHelper
+            snapHelper.attachToRecyclerView(recyclerView)
         } else {
             recyclerView.layoutManager = LinearLayoutManager(
                 recyclerView.context,
                 LinearLayoutManager.VERTICAL,
                 false
             )
+
+            recyclerView.onFlingListener = null
+
+            snapHelper.attachToRecyclerView(null)
         }
     }
 }

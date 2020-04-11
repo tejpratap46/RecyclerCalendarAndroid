@@ -20,6 +20,8 @@ class InfiniteRecyclerCalendarActivity : AppCompatActivity() {
 
     private var calenderView: InfiniteRecyclerCalendarView? = null
     private var selectionMode: InfiniteRecyclerCalendarConfiguration.SelectionMode? = null
+    private var calendarViewType: RecyclerCalendarConfiguration.CalenderViewType =
+        RecyclerCalendarConfiguration.CalenderViewType.VERTICAL
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,10 +48,34 @@ class InfiniteRecyclerCalendarActivity : AppCompatActivity() {
                 layoutSettingContainer.visibility = View.VISIBLE
             }
         }
+
+        val radioViewTypeVertical: RadioButton = findViewById(R.id.radioViewTypeVertical)
+        val radioViewTypeHorizontal: RadioButton = findViewById(R.id.radioViewTypeHorizontal)
+
         val radioSelectNone: RadioButton = findViewById(R.id.radioSelectionNone)
         val radioSelectSingle: RadioButton = findViewById(R.id.radioSelectionSingle)
         val radioSelectMultiple: RadioButton = findViewById(R.id.radioSelectionMultiple)
         val radioSelectRange: RadioButton = findViewById(R.id.radioSelectionRange)
+
+        radioViewTypeVertical.setOnClickListener {
+            // Switch to Vertical View
+            calendarViewType = RecyclerCalendarConfiguration.CalenderViewType.VERTICAL
+
+            refreshCalendarCalendar(
+                startDate = startCal.time,
+                endDate = endCal.time
+            )
+        }
+
+        radioViewTypeHorizontal.setOnClickListener {
+            // Switch to Horizontal View
+            calendarViewType = RecyclerCalendarConfiguration.CalenderViewType.HORIZONTAL
+
+            refreshCalendarCalendar(
+                startDate = startCal.time,
+                endDate = endCal.time
+            )
+        }
 
         radioSelectNone.setOnClickListener {
             // Switch to Selection Mode NONE
@@ -114,7 +140,7 @@ class InfiniteRecyclerCalendarActivity : AppCompatActivity() {
         }
         val configuration: InfiniteRecyclerCalendarConfiguration =
             InfiniteRecyclerCalendarConfiguration(
-                calenderViewType = RecyclerCalendarConfiguration.CalenderViewType.VERTICAL,
+                calenderViewType = calendarViewType,
                 calendarLocale = Locale.getDefault(),
                 includeMonthHeader = true,
                 selectionMode = selectionMode!!
