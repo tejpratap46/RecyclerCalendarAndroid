@@ -122,7 +122,7 @@ override fun onBindViewHolder(
 
 ------------
 
-#### For People who want to just use simple date picker calendar, i have created `SimpleRecyclerCalendarView`
+#### For People who want to just use simple date picker/selection calendar, i have created `SimpleRecyclerCalendarView`
 To use `SimpleRecyclerCalendarView`, just include following in your `.xml`
 
 ```xml
@@ -170,6 +170,53 @@ val configuration: SimpleRecyclerCalendarConfiguration =
             })
 ```
 *To know More about SimpleRecyclerCalendarView visit [SimpleRecyclerCalendarActivity](https://github.com/tejpratap46/RecyclerCalendarAndroid/blob/master/app/src/main/java/com/tejpratapsingh/recyclercalendaractivity/simple/SimpleRecyclerCalendarActivity.kt)*
+
+#### For People who want to just use infinite date picker/selection calendar, i have created `InfiniteRecyclerCalendarView`
+To use `InfiniteRecyclerCalendarView`, just include following in your `.xml`
+
+```xml
+<com.tejpratapsingh.recyclercalendar.views.InfiniteRecyclerCalendarView  
+  android:id="@+id/calendarRecyclerView"  
+  android:layout_width="match_parent"  
+  android:layout_height="match_parent" />
+```
+
+And in Your Activity, include following
+```kotlin
+val calenderView: InfiniteRecyclerCalendarView = findViewById(R.id.calendarRecyclerView)  
+  
+val date = Date()  
+date.time = System.currentTimeMillis()  
+  
+// Start From Date
+val startCal = Calendar.getInstance()  
+  
+// End Date
+val endCal = Calendar.getInstance()  
+endCal.time = date  
+endCal.add(Calendar.MONTH, 3)  
+  
+val configuration: InfiniteRecyclerCalendarConfiguration =
+            InfiniteRecyclerCalendarConfiguration(
+                calenderViewType = RecyclerCalendarConfiguration.CalenderViewType.VERTICAL, // calendarViewType could be VERTICAL OR HORIZONTAL
+                calendarLocale = Locale.getDefault(),
+                includeMonthHeader = true,
+                selectionMode = InfiniteRecyclerCalendarConfiguration.SelectionModeNone() // selectionMode could be one of [SelectionModeNone, SelectionModeSingle, SelectionModeMultiple, SelectionModeRange]
+            )
+
+        calenderView!!.initialise(
+            configuration,
+            object : InfiniteRecyclerCalenderAdapter.OnDateSelected {
+                override fun onDateSelected(date: Date) {
+                    Toast.makeText(
+                        calenderView!!.context,
+                        "Date Selected: ${CalendarUtils.getGmt(date)}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            })
+```
+*To know More about InfiniteRecyclerCalendarActivity visit [InfiniteRecyclerCalendarActivity](https://github.com/tejpratap46/RecyclerCalendarAndroid/blob/master/app/src/main/java/com/tejpratapsingh/recyclercalendaractivity/simple/InfiniteRecyclerCalendarActivity.kt)*
 
 ## Donate
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/M4M413CJC)
