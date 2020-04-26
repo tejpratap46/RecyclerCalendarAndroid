@@ -3,11 +3,11 @@
     android:color="?android:attr/colorControlHighlight">
     <item>
         <shape>
-            <solid android:color="?attr/colorAccent" />
+            <solid android:color="@color/indigo_500" />
             <stroke
                 android:width="2dp"
-                android:color="?attr/colorAccent" />
-            <corners android:radius="5dp" />
+                android:color="@color/indigo_500" />
+            <corners android:radius="20dp" />
             <padding
                 android:bottom="0dp"
                 android:left="0dp"

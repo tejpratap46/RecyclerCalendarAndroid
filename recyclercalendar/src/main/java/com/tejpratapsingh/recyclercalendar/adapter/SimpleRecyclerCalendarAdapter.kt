@@ -3,6 +3,7 @@ package com.tejpratapsingh.recyclercalendar.adapter
 import android.content.Context
 import android.os.Build
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -26,7 +27,11 @@ class SimpleRecyclerCalendarAdapter(
     }
 
     enum class POSITION {
-        NONE, START, MIDDLE, END
+        NONE, // Date is not part of Selection
+        SINGLE, // Single Selected Date
+        START, // Selection Start
+        MIDDLE, // Selection Middle
+        END // Selection End
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -48,11 +53,8 @@ class SimpleRecyclerCalendarAdapter(
 
         simpleViewHolder.itemView.setOnClickListener(null)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            simpleViewHolder.itemView.background = null
-        } else {
-            simpleViewHolder.itemView.setBackgroundDrawable(null)
-        }
+        highlightDate(simpleViewHolder, POSITION.NONE)
+
         simpleViewHolder.textViewDay.setTextColor(
             ContextCompat.getColor(
                 context,
@@ -82,10 +84,6 @@ class SimpleRecyclerCalendarAdapter(
 
             simpleViewHolder.itemView.setOnClickListener(null)
 
-            simpleViewHolder.layoutContainer.layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
         } else if (calendarItem.isEmpty) {
             simpleViewHolder.itemView.visibility = View.GONE
             simpleViewHolder.textViewDay.text = ""
@@ -131,7 +129,7 @@ class SimpleRecyclerCalendarAdapter(
                             ) ?: ""
 
                         if (currentDateString == stringSelectedTimeFormat) {
-                            highlightDate(simpleViewHolder, POSITION.NONE)
+                            highlightDate(simpleViewHolder, POSITION.SINGLE)
                         }
 
                         simpleViewHolder.itemView.setOnClickListener {
@@ -146,7 +144,8 @@ class SimpleRecyclerCalendarAdapter(
                     val selectionStartDateList: HashMap<String, Date> =
                         (configuration.selectionMode as SimpleRecyclerCalendarConfiguration.SelectionModeMultiple).selectionStartDateList
 
-                    val calenderMultipleSelection: Calendar = Calendar.getInstance(configuration.calendarLocale)
+                    val calenderMultipleSelection: Calendar =
+                        Calendar.getInstance(configuration.calendarLocale)
                     calenderMultipleSelection.time = calendarItem.date
                     calenderMultipleSelection.add(Calendar.DATE, -1)
 
@@ -176,7 +175,7 @@ class SimpleRecyclerCalendarAdapter(
                         } else if (selectionStartDateList[tomorrowDateString] != null) {
                             highlightDate(simpleViewHolder, POSITION.START)
                         } else {
-                            highlightDate(simpleViewHolder, POSITION.NONE)
+                            highlightDate(simpleViewHolder, POSITION.SINGLE)
                         }
                     }
 
@@ -260,8 +259,14 @@ class SimpleRecyclerCalendarAdapter(
     }
 
     class SimpleCalendarViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val layoutContainer: LinearLayout =
+
+        val layoutStartPadding: View =
+            itemView.findViewById(R.id.layoutCalenderItemSimpleStartPadding)
+        val layoutEndPadding: View = itemView.findViewById(R.id.layoutCalenderItemSimpleEndPadding)
+        val layoutContainer: View =
             itemView.findViewById(R.id.layoutCalenderItemSimpleContainer)
+        val layoutContainerInner: LinearLayout =
+            itemView.findViewById(R.id.layoutCalenderItemSimpleContainerInner)
         val textViewDay: TextView = itemView.findViewById(R.id.textCalenderItemSimpleDay)
         val textViewDate: TextView = itemView.findViewById(R.id.textCalenderItemSimpleDate)
     }
@@ -269,62 +274,118 @@ class SimpleRecyclerCalendarAdapter(
     private fun highlightDate(monthViewHolder: SimpleCalendarViewHolder, position: POSITION) {
         val context: Context = monthViewHolder.itemView.context
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            if (position == POSITION.START) {
-                monthViewHolder.itemView.background =
-                    ContextCompat.getDrawable(
-                        context,
-                        R.drawable.layout_round_corner_left_filled
-                    )
-            } else if (position == POSITION.END) {
-                monthViewHolder.itemView.background =
-                    ContextCompat.getDrawable(
-                        context,
-                        R.drawable.layout_round_corner_right_filled
-                    )
-            } else if (position == POSITION.MIDDLE) {
-                monthViewHolder.itemView.background =
+        if (position == POSITION.START) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                monthViewHolder.layoutContainer.background =
                     ContextCompat.getDrawable(
                         context,
                         R.drawable.layout_round_corner_middle_filled
                     )
-            } else if (position == POSITION.NONE) {
-                monthViewHolder.itemView.background =
+
+                monthViewHolder.layoutContainerInner.background =
                     ContextCompat.getDrawable(
                         context,
                         R.drawable.layout_round_corner_filled
                     )
-            }
-        } else {
-            if (position == POSITION.START) {
-                monthViewHolder.itemView.setBackgroundDrawable(
-                    ContextCompat.getDrawable(
-                        context,
-                        R.drawable.layout_round_corner_left_filled
-                    )
-                )
-            } else if (position == POSITION.END) {
-                monthViewHolder.itemView.setBackgroundDrawable(
-                    ContextCompat.getDrawable(
-                        context,
-                        R.drawable.layout_round_corner_right_filled
-                    )
-                )
-            } else if (position == POSITION.MIDDLE) {
-                monthViewHolder.itemView.setBackgroundDrawable(
+            } else {
+                monthViewHolder.layoutContainer.setBackgroundDrawable(
                     ContextCompat.getDrawable(
                         context,
                         R.drawable.layout_round_corner_middle_filled
                     )
                 )
-            } else if (position == POSITION.NONE) {
-                monthViewHolder.itemView.setBackgroundDrawable(
+
+                monthViewHolder.layoutContainerInner.setBackgroundDrawable(
                     ContextCompat.getDrawable(
                         context,
                         R.drawable.layout_round_corner_filled
                     )
                 )
             }
+
+            monthViewHolder.layoutStartPadding.visibility = View.VISIBLE
+            monthViewHolder.layoutEndPadding.visibility = View.GONE
+        } else if (position == POSITION.END) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                monthViewHolder.layoutContainer.background =
+                    ContextCompat.getDrawable(
+                        context,
+                        R.drawable.layout_round_corner_middle_filled
+                    )
+                monthViewHolder.layoutContainerInner.background =
+                    ContextCompat.getDrawable(
+                        context,
+                        R.drawable.layout_round_corner_filled
+                    )
+            } else {
+                monthViewHolder.layoutContainer.setBackgroundDrawable(
+                    ContextCompat.getDrawable(
+                        context,
+                        R.drawable.layout_round_corner_middle_filled
+                    )
+                )
+
+                monthViewHolder.layoutContainerInner.setBackgroundDrawable(
+                    ContextCompat.getDrawable(
+                        context,
+                        R.drawable.layout_round_corner_filled
+                    )
+                )
+            }
+
+            monthViewHolder.layoutStartPadding.visibility = View.GONE
+            monthViewHolder.layoutEndPadding.visibility = View.VISIBLE
+        } else if (position == POSITION.MIDDLE) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                monthViewHolder.layoutContainer.background =
+                    ContextCompat.getDrawable(
+                        context,
+                        R.drawable.layout_round_corner_middle_filled
+                    )
+                monthViewHolder.layoutContainerInner.background = null
+            } else {
+                monthViewHolder.layoutContainer.setBackgroundDrawable(
+                    ContextCompat.getDrawable(
+                        context,
+                        R.drawable.layout_round_corner_middle_filled
+                    )
+                )
+                monthViewHolder.layoutContainerInner.setBackgroundDrawable(null)
+            }
+
+            monthViewHolder.layoutStartPadding.visibility = View.GONE
+            monthViewHolder.layoutEndPadding.visibility = View.GONE
+        } else if (position == POSITION.SINGLE) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                monthViewHolder.layoutContainer.background = null
+                monthViewHolder.layoutContainerInner.background =
+                    ContextCompat.getDrawable(
+                        context,
+                        R.drawable.layout_round_corner_filled
+                    )
+            } else {
+                monthViewHolder.layoutContainer.setBackgroundDrawable(null)
+                monthViewHolder.layoutContainerInner.setBackgroundDrawable(
+                    ContextCompat.getDrawable(
+                        context,
+                        R.drawable.layout_round_corner_filled
+                    )
+                )
+            }
+
+            monthViewHolder.layoutStartPadding.visibility = View.GONE
+            monthViewHolder.layoutEndPadding.visibility = View.GONE
+        } else if (position == POSITION.NONE) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                monthViewHolder.layoutContainer.background = null
+                monthViewHolder.layoutContainerInner.background = null
+            } else {
+                monthViewHolder.layoutContainer.setBackgroundDrawable(null)
+                monthViewHolder.layoutContainerInner.setBackgroundDrawable(null)
+            }
+
+            monthViewHolder.layoutStartPadding.visibility = View.GONE
+            monthViewHolder.layoutEndPadding.visibility = View.GONE
         }
 
         monthViewHolder.textViewDay.setTextColor(

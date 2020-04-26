@@ -1,28 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layoutCalenderItemSimpleContainer"
-    android:layout_width="50dp"
-    android:layout_height="wrap_content"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/textCalenderItemSimpleDay"
+    <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/layoutCalenderItemSimpleStartPadding"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1" />
+
+        <View
+            android:id="@+id/layoutCalenderItemSimpleContainer"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            tools:background="@drawable/layout_round_corner_middle_filled" />
+
+        <View
+            android:id="@+id/layoutCalenderItemSimpleEndPadding"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutCalenderItemSimpleContainerInner"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textColor="@color/colorBlack"
-        tools:text="Mon" />
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:padding="8dp"
+        tools:background="@drawable/layout_round_corner_filled">
 
-    <TextView
-        android:id="@+id/textCalenderItemSimpleDate"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:gravity="center"
-        android:textColor="@color/colorBlack"
-        android:textSize="@dimen/text_size_20"
-        android:textStyle="bold"
-        tools:text="23" />
+        <TextView
+            android:id="@+id/textCalenderItemSimpleDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:lines="1"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_size_12"
+            tools:text="Mon" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/textCalenderItemSimpleDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:lines="1"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_size_14"
+            android:textStyle="bold"
+            tools:text="23" />
+
+    </LinearLayout>
+
+</FrameLayout>
