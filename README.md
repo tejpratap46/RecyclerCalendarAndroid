@@ -1,5 +1,3 @@
-
-
 # RecyclerCalendarAndroid
   
 [![](https://jitpack.io/v/tejpratap46/RecyclerCalendarAndroid.svg)](https://jitpack.io/#tejpratap46/RecyclerCalendarAndroid)
@@ -219,4 +217,8 @@ val configuration: InfiniteRecyclerCalendarConfiguration =
 *To know More about InfiniteRecyclerCalendarActivity visit [InfiniteRecyclerCalendarActivity](https://github.com/tejpratap46/RecyclerCalendarAndroid/blob/master/app/src/main/java/com/tejpratapsingh/recyclercalendaractivity/simple/InfiniteRecyclerCalendarActivity.kt)*
 
 ## Donate
-[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/M4M413CJC)
+[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/M4M413CJC)[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ftejpratap46%2FRecyclerCalendarAndroid.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Ftejpratap46%2FRecyclerCalendarAndroid?ref=badge_shield)
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ftejpratap46%2FRecyclerCalendarAndroid.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Ftejpratap46%2FRecyclerCalendarAndroid?ref=badge_large)
