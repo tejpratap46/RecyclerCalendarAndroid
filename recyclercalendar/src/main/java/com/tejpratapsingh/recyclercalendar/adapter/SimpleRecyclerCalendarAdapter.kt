@@ -2,6 +2,7 @@ package com.tejpratapsingh.recyclercalendar.adapter
 
 import android.content.Context
 import android.os.Build
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -68,6 +69,9 @@ class SimpleRecyclerCalendarAdapter(
             )
         )
 
+        simpleViewHolder.textViewDate.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14F)
+        simpleViewHolder.textViewDate.setTextColor(ContextCompat.getColor(context, R.color.colorBlack))
+
         if (calendarItem.isHeader) {
             val selectedCalendar = Calendar.getInstance()
             selectedCalendar.time = calendarItem.date
@@ -80,6 +84,8 @@ class SimpleRecyclerCalendarAdapter(
             val year = selectedCalendar[Calendar.YEAR].toLong()
 
             simpleViewHolder.textViewDay.text = year.toString()
+            simpleViewHolder.textViewDate.setTextColor(ContextCompat.getColor(context, R.color.grey_500))
+            simpleViewHolder.textViewDate.setTextSize(TypedValue.COMPLEX_UNIT_SP, 32F)
             simpleViewHolder.textViewDate.text = month
 
             simpleViewHolder.itemView.setOnClickListener(null)
