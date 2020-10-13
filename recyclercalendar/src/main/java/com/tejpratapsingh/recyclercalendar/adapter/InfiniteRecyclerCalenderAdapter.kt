@@ -1,10 +1,12 @@
 package com.tejpratapsingh.recyclercalendar.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.*
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SnapHelper
 import com.tejpratapsingh.recyclercalendar.R
 import com.tejpratapsingh.recyclercalendar.model.InfiniteRecyclerCalendarConfiguration
 import com.tejpratapsingh.recyclercalendar.model.RecyclerCalendarConfiguration
@@ -18,6 +20,9 @@ class InfiniteRecyclerCalenderAdapter(
     private val configuration: InfiniteRecyclerCalendarConfiguration
 ) :
     RecyclerView.Adapter<InfiniteRecyclerCalenderAdapter.InfiniteViewHolder>() {
+
+    private val viewPool: RecyclerView.RecycledViewPool = RecyclerView.RecycledViewPool()
+
     interface OnDateSelected {
         fun onDateSelected(date: Date)
     }
@@ -90,6 +95,7 @@ class InfiniteRecyclerCalenderAdapter(
                 selectionMode = selectionMode
             )
 
+        holder.simpleRecyclerCalendarView.setRecycledViewPool(this.viewPool)
         holder.simpleRecyclerCalendarView.initialise(
             startDate = startCal.time,
             endDate = endCal.time,
@@ -114,14 +120,19 @@ class InfiniteRecyclerCalenderAdapter(
                                 SimpleRecyclerCalendarConfiguration.SelectionModeSingle(
                                     selectedDate = selectionModeSingle.selectedDate
                                 )
+
+                            notifyDataSetChanged()
                         }
                         is InfiniteRecyclerCalendarConfiguration.SelectionModeMultiple -> {
                             val selectionModeMultiple: InfiniteRecyclerCalendarConfiguration.SelectionModeMultiple =
                                 configuration.selectionMode as InfiniteRecyclerCalendarConfiguration.SelectionModeMultiple
                             if (selectionModeMultiple.selectionStartDateList[currentDateString] != null) {
-                                selectionModeMultiple.selectionStartDateList[currentDateString] = date
+                                selectionModeMultiple.selectionStartDateList[currentDateString] =
+                                    date
                             } else {
-                                selectionModeMultiple.selectionStartDateList.remove(currentDateString)
+                                selectionModeMultiple.selectionStartDateList.remove(
+                                    currentDateString
+                                )
                             }
 
                             simpleRecyclerCalendarConfiguration.selectionMode =
@@ -140,6 +151,8 @@ class InfiniteRecyclerCalenderAdapter(
                                         selectionEndDate = selectionModeRange.selectionEndDate
                                     )
                             }
+
+                            notifyDataSetChanged()
                         }
                         else -> {
                             SimpleRecyclerCalendarConfiguration.SelectionModeNone()
@@ -147,8 +160,6 @@ class InfiniteRecyclerCalenderAdapter(
                     }
 
                     dateSelectListener.onDateSelected(date)
-
-//                    notifyDataSetChanged()
                 }
             })
     }
