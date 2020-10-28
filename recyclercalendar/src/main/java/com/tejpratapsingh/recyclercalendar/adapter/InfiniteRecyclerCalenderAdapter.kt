@@ -64,24 +64,6 @@ class InfiniteRecyclerCalenderAdapter(
                 is InfiniteRecyclerCalendarConfiguration.SelectionModeNone -> {
                     SimpleRecyclerCalendarConfiguration.SelectionModeNone()
                 }
-                is InfiniteRecyclerCalendarConfiguration.SelectionModeSingle -> {
-                    val selectionModeSingle: InfiniteRecyclerCalendarConfiguration.SelectionModeSingle =
-                        configuration.selectionMode as InfiniteRecyclerCalendarConfiguration.SelectionModeSingle
-                    SimpleRecyclerCalendarConfiguration.SelectionModeSingle(selectionModeSingle.selectedDate)
-                }
-                is InfiniteRecyclerCalendarConfiguration.SelectionModeMultiple -> {
-                    val selectionModeMultiple: InfiniteRecyclerCalendarConfiguration.SelectionModeMultiple =
-                        configuration.selectionMode as InfiniteRecyclerCalendarConfiguration.SelectionModeMultiple
-                    SimpleRecyclerCalendarConfiguration.SelectionModeMultiple(selectionModeMultiple.selectionStartDateList)
-                }
-                is InfiniteRecyclerCalendarConfiguration.SelectionModeRange -> {
-                    val selectionModeRange: InfiniteRecyclerCalendarConfiguration.SelectionModeRange =
-                        configuration.selectionMode as InfiniteRecyclerCalendarConfiguration.SelectionModeRange
-                    SimpleRecyclerCalendarConfiguration.SelectionModeRange(
-                        selectionStartDate = selectionModeRange.selectionStartDate,
-                        selectionEndDate = selectionModeRange.selectionEndDate
-                    )
-                }
                 else -> {
                     SimpleRecyclerCalendarConfiguration.SelectionModeNone()
                 }
@@ -109,55 +91,6 @@ class InfiniteRecyclerCalenderAdapter(
                             format = CalendarUtils.DB_DATE_FORMAT
                         )
                             ?: ""
-
-                    when (configuration.selectionMode) {
-                        is InfiniteRecyclerCalendarConfiguration.SelectionModeSingle -> {
-                            val selectionModeSingle: InfiniteRecyclerCalendarConfiguration.SelectionModeSingle =
-                                configuration.selectionMode as InfiniteRecyclerCalendarConfiguration.SelectionModeSingle
-                            // Set new selected date
-                            selectionModeSingle.selectedDate = date
-                            simpleRecyclerCalendarConfiguration.selectionMode =
-                                SimpleRecyclerCalendarConfiguration.SelectionModeSingle(
-                                    selectedDate = selectionModeSingle.selectedDate
-                                )
-
-                            notifyDataSetChanged()
-                        }
-                        is InfiniteRecyclerCalendarConfiguration.SelectionModeMultiple -> {
-                            val selectionModeMultiple: InfiniteRecyclerCalendarConfiguration.SelectionModeMultiple =
-                                configuration.selectionMode as InfiniteRecyclerCalendarConfiguration.SelectionModeMultiple
-                            if (selectionModeMultiple.selectionStartDateList[currentDateString] != null) {
-                                selectionModeMultiple.selectionStartDateList[currentDateString] =
-                                    date
-                            } else {
-                                selectionModeMultiple.selectionStartDateList.remove(
-                                    currentDateString
-                                )
-                            }
-
-                            simpleRecyclerCalendarConfiguration.selectionMode =
-                                SimpleRecyclerCalendarConfiguration.SelectionModeMultiple(
-                                    selectionStartDateList = selectionModeMultiple.selectionStartDateList
-                                )
-                        }
-                        is InfiniteRecyclerCalendarConfiguration.SelectionModeRange -> {
-                            holder.simpleRecyclerCalendarView.getConfiguration()?.let {
-                                val selectionModeRange: SimpleRecyclerCalendarConfiguration.SelectionModeRange =
-                                    it.selectionMode as SimpleRecyclerCalendarConfiguration.SelectionModeRange
-
-                                configuration.selectionMode =
-                                    InfiniteRecyclerCalendarConfiguration.SelectionModeRange(
-                                        selectionStartDate = selectionModeRange.selectionStartDate,
-                                        selectionEndDate = selectionModeRange.selectionEndDate
-                                    )
-                            }
-
-                            notifyDataSetChanged()
-                        }
-                        else -> {
-                            SimpleRecyclerCalendarConfiguration.SelectionModeNone()
-                        }
-                    }
 
                     dateSelectListener.onDateSelected(date)
                 }

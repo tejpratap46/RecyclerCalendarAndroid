@@ -52,11 +52,6 @@ class InfiniteRecyclerCalendarActivity : AppCompatActivity() {
         val radioViewTypeVertical: RadioButton = findViewById(R.id.radioViewTypeVertical)
         val radioViewTypeHorizontal: RadioButton = findViewById(R.id.radioViewTypeHorizontal)
 
-        val radioSelectNone: RadioButton = findViewById(R.id.radioSelectionNone)
-        val radioSelectSingle: RadioButton = findViewById(R.id.radioSelectionSingle)
-        val radioSelectMultiple: RadioButton = findViewById(R.id.radioSelectionMultiple)
-        val radioSelectRange: RadioButton = findViewById(R.id.radioSelectionRange)
-
         radioViewTypeVertical.setOnClickListener {
             // Switch to Vertical View
             calendarViewType = RecyclerCalendarConfiguration.CalenderViewType.VERTICAL
@@ -77,58 +72,13 @@ class InfiniteRecyclerCalendarActivity : AppCompatActivity() {
             )
         }
 
-        radioSelectNone.setOnClickListener {
-            // Switch to Selection Mode NONE
-            selectionMode = InfiniteRecyclerCalendarConfiguration.SelectionModeNone()
+        selectionMode = InfiniteRecyclerCalendarConfiguration.SelectionModeNone()
 
-            refreshCalendarCalendar(
-                startDate = startCal.time,
-                endDate = endCal.time
+        refreshCalendarCalendar(
+            startDate = startCal.time,
+            endDate = endCal.time
 
-            )
-        }
-        radioSelectSingle.setOnClickListener {
-            // Switch to Selection Mode SINGLE
-            selectionMode =
-                InfiniteRecyclerCalendarConfiguration.SelectionModeSingle(selectedDate = Date())
-
-            refreshCalendarCalendar(
-                startDate = startCal.time,
-                endDate = endCal.time
-            )
-        }
-        radioSelectMultiple.setOnClickListener {
-            // Switch to Selection Mode MULTIPLE
-            selectionMode = InfiniteRecyclerCalendarConfiguration.SelectionModeMultiple(
-                selectionStartDateList = HashMap()
-            )
-
-            refreshCalendarCalendar(
-                startDate = startCal.time,
-                endDate = endCal.time
-            )
-        }
-        radioSelectRange.setOnClickListener {
-            // Switch to Selection Mode RANGE
-
-            // Range Starts from todayDate and ends on 5 days from today
-            val selectionEndCal = Calendar.getInstance()
-            selectionEndCal.time = date
-            selectionEndCal.add(Calendar.DATE, 5)
-
-            selectionMode = InfiniteRecyclerCalendarConfiguration.SelectionModeRange(
-                selectionStartDate = date,
-                selectionEndDate = selectionEndCal.time
-            )
-
-            refreshCalendarCalendar(
-                startDate = startCal.time,
-                endDate = endCal.time
-            )
-        }
-
-        // Set None As Default
-        radioSelectNone.callOnClick()
+        )
     }
 
     private fun refreshCalendarCalendar(
