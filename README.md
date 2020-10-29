@@ -25,6 +25,8 @@ dependencies {
  implementation 'com.github.tejpratap46:RecyclerCalendarAndroid:LATEST_RELEASE_TAG'
 }
 ```
+## Try It
+[![Download From Play Store](https://play.google.com/intl/en_us/badges/images/badge_new.png)](https://play.google.com/store/apps/details?id=com.tejpratapsingh.recyclercalendaractivity)
 
 ### Here are sample calenders you can create with this library :
 
