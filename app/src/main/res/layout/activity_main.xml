@@ -30,7 +30,7 @@
             android:background="?android:attr/selectableItemBackground"
             android:orientation="horizontal">
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:background="@color/light_green_200"
@@ -41,6 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
+                android:paddingStart="@dimen/margin_large"
                 android:paddingLeft="@dimen/margin_large"
                 android:text="@string/week_calendar"
                 android:textAllCaps="true"
@@ -60,7 +61,7 @@
             android:background="?android:attr/selectableItemBackground"
             android:orientation="horizontal">
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:background="@color/light_blue_200"
@@ -70,6 +71,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/margin_large"
                 android:layout_marginLeft="@dimen/margin_large"
                 android:gravity="center_vertical"
                 android:text="@string/month_calendar"
@@ -89,7 +91,7 @@
             android:background="?android:attr/selectableItemBackground"
             android:orientation="horizontal">
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:background="@color/red_300"
@@ -99,6 +101,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/margin_large"
                 android:layout_marginLeft="@dimen/margin_large"
                 android:gravity="center_vertical"
                 android:text="@string/page_month_calendar"
@@ -128,7 +131,7 @@
             android:background="?android:attr/selectableItemBackground"
             android:orientation="horizontal">
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:background="@color/orange_300"
@@ -138,6 +141,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/margin_large"
                 android:layout_marginLeft="@dimen/margin_large"
                 android:gravity="center_vertical"
                 android:text="@string/simple_calendar"
@@ -157,7 +161,7 @@
             android:background="?android:attr/selectableItemBackground"
             android:orientation="horizontal">
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:background="@color/purple_300"
@@ -167,6 +171,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/margin_large"
                 android:layout_marginLeft="@dimen/margin_large"
                 android:gravity="center_vertical"
                 android:text="@string/infinite_calendar"
@@ -181,10 +186,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:gravity="center_horizontal"
             android:text="@string/calendar_icon_license"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/text_size_16"
-            android:gravity="center_horizontal"
             android:textStyle="bold"
             android:typeface="monospace" />
     </LinearLayout>
