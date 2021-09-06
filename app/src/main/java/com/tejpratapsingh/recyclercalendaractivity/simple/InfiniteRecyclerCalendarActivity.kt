@@ -14,7 +14,6 @@ import com.tejpratapsingh.recyclercalendar.utilities.CalendarUtils
 import com.tejpratapsingh.recyclercalendar.views.InfiniteRecyclerCalendarView
 import com.tejpratapsingh.recyclercalendaractivity.R
 import java.util.*
-import kotlin.collections.HashMap
 
 class InfiniteRecyclerCalendarActivity : AppCompatActivity() {
 
@@ -28,15 +27,6 @@ class InfiniteRecyclerCalendarActivity : AppCompatActivity() {
         setContentView(R.layout.activity_infinite_recycler_calendar)
 
         calenderView = findViewById(R.id.calendarRecyclerView)
-
-        val date = Date()
-        date.time = System.currentTimeMillis()
-
-        val startCal = Calendar.getInstance()
-
-        val endCal = Calendar.getInstance()
-        endCal.time = date
-        endCal.add(Calendar.MONTH, 3)
 
         val buttonSetting: ImageButton = findViewById(R.id.buttonSimpleSettings)
         val layoutSettingContainer: LinearLayout = findViewById(R.id.layoutSettingContainer)
@@ -56,35 +46,22 @@ class InfiniteRecyclerCalendarActivity : AppCompatActivity() {
             // Switch to Vertical View
             calendarViewType = RecyclerCalendarConfiguration.CalenderViewType.VERTICAL
 
-            refreshCalendarCalendar(
-                startDate = startCal.time,
-                endDate = endCal.time
-            )
+            refreshCalendarCalendar()
         }
 
         radioViewTypeHorizontal.setOnClickListener {
             // Switch to Horizontal View
             calendarViewType = RecyclerCalendarConfiguration.CalenderViewType.HORIZONTAL
 
-            refreshCalendarCalendar(
-                startDate = startCal.time,
-                endDate = endCal.time
-            )
+            refreshCalendarCalendar()
         }
 
         selectionMode = InfiniteRecyclerCalendarConfiguration.SelectionModeNone()
 
-        refreshCalendarCalendar(
-            startDate = startCal.time,
-            endDate = endCal.time
-
-        )
+        refreshCalendarCalendar()
     }
 
-    private fun refreshCalendarCalendar(
-        startDate: Date,
-        endDate: Date
-    ) {
+    private fun refreshCalendarCalendar() {
         if (calenderView == null || selectionMode == null) {
             return
         }
@@ -95,6 +72,8 @@ class InfiniteRecyclerCalendarActivity : AppCompatActivity() {
                 includeMonthHeader = true,
                 selectionMode = selectionMode!!
             )
+
+        configuration.weekStartOffset = RecyclerCalendarConfiguration.START_DAY_OF_WEEK.MONDAY
 
         calenderView!!.initialise(
             configuration,

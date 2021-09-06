@@ -27,7 +27,7 @@ class PlaceholderFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_view_pager_calendar, container, false)
-        val sectionNumber: Int = arguments!!.get(ARG_SECTION_NUMBER) as Int
+        val sectionNumber: Int = requireArguments().get(ARG_SECTION_NUMBER) as Int
         val calendarRecyclerView: RecyclerView = root.findViewById(R.id.calendarRecyclerView)
         val date = Date()
         date.time = System.currentTimeMillis()
@@ -42,6 +42,7 @@ class PlaceholderFragment : Fragment() {
                 calendarLocale = Locale.getDefault(),
                 includeMonthHeader = false
             )
+        configuration.weekStartOffset = RecyclerCalendarConfiguration.START_DAY_OF_WEEK.MONDAY
 
         // Some Random Events
         for (i in 0..30 step 3) {
@@ -95,7 +96,7 @@ class PlaceholderFragment : Fragment() {
                         }
                     }
                 }
-            );
+            )
 
         calendarRecyclerView.adapter = calendarAdapterViewPager
         return root

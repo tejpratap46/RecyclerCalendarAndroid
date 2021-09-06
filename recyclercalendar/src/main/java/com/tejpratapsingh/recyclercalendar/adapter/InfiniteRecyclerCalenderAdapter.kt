@@ -1,5 +1,6 @@
 package com.tejpratapsingh.recyclercalendar.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,7 @@ class InfiniteRecyclerCalenderAdapter(
     private val configuration: InfiniteRecyclerCalendarConfiguration
 ) :
     RecyclerView.Adapter<InfiniteRecyclerCalenderAdapter.InfiniteViewHolder>() {
+    private val TAG = "InfiniteRecyclerCalende"
 
     private val viewPool: RecyclerView.RecycledViewPool = RecyclerView.RecycledViewPool()
 
@@ -76,6 +78,7 @@ class InfiniteRecyclerCalenderAdapter(
                 includeMonthHeader = configuration.includeMonthHeader,
                 selectionMode = selectionMode
             )
+        simpleRecyclerCalendarConfiguration.weekStartOffset = configuration.weekStartOffset
 
         holder.simpleRecyclerCalendarView.setRecycledViewPool(this.viewPool)
         holder.simpleRecyclerCalendarView.initialise(
@@ -91,6 +94,8 @@ class InfiniteRecyclerCalenderAdapter(
                             format = CalendarUtils.DB_DATE_FORMAT
                         )
                             ?: ""
+
+                    Log.d(TAG, "onDateSelected: $currentDateString")
 
                     dateSelectListener.onDateSelected(date)
                 }

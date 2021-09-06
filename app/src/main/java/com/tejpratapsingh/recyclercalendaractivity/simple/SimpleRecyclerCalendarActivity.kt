@@ -142,6 +142,7 @@ class SimpleRecyclerCalendarActivity : AppCompatActivity() {
                 includeMonthHeader = true,
                 selectionMode = selectionMode!!
             )
+        configuration.weekStartOffset = RecyclerCalendarConfiguration.START_DAY_OF_WEEK.MONDAY
 
         calenderView!!.initialise(
             startDate,

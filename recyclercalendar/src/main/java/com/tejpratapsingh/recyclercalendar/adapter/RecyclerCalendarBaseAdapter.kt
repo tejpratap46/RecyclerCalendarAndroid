@@ -30,6 +30,7 @@ abstract class RecyclerCalendarBaseAdapter(
         if (configuration.calenderViewType == RecyclerCalendarConfiguration.CalenderViewType.HORIZONTAL) {
             startCalendar.time = startDate
             var thisDayOfWeek: Int = startCalendar.get(Calendar.DAY_OF_WEEK)
+            thisDayOfWeek += configuration.weekStartOffset.offset
 
             if (thisDayOfWeek - 1 < 0) {
                 thisDayOfWeek = 7 + (thisDayOfWeek - 1)
@@ -68,6 +69,8 @@ abstract class RecyclerCalendarBaseAdapter(
             while (startCalendar.time.before(endCalendar.time) || startCalendar.time == endCalendar.time) {
                 val dayOfMonth: Int = startCalendar.get(Calendar.DAY_OF_MONTH)
                 var dayOfWeek: Int = startCalendar.get(Calendar.DAY_OF_WEEK)
+                dayOfWeek += configuration.weekStartOffset.offset
+
                 if (configuration.calenderViewType == RecyclerCalendarConfiguration.CalenderViewType.VERTICAL && dayOfMonth == 1) { // First Day of month
                     if (configuration.includeMonthHeader) {
                         val calendarEmptyHeader: RecyclerCalenderViewItem =

@@ -34,6 +34,7 @@ class HorizontalCalendarActivity : AppCompatActivity() {
                 calendarLocale = Locale.getDefault(),
                 includeMonthHeader = true
             )
+        configuration.weekStartOffset = RecyclerCalendarConfiguration.START_DAY_OF_WEEK.MONDAY
 
         textViewSelectedDate.text =
             CalendarUtils.dateStringFromFormat(

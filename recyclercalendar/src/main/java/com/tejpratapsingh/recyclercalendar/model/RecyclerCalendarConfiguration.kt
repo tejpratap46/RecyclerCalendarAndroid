@@ -10,4 +10,10 @@ open class RecyclerCalendarConfiguration(
     enum class CalenderViewType {
         HORIZONTAL, VERTICAL
     }
+
+    enum class START_DAY_OF_WEEK(val offset: Int) {
+        SATURDAY(1), SUNDAY(0), MONDAY(-1)
+    }
+
+    var weekStartOffset: START_DAY_OF_WEEK = START_DAY_OF_WEEK.SUNDAY
 }

@@ -38,6 +38,8 @@ class VerticalCalendarActivity : AppCompatActivity() {
                 includeMonthHeader = true
             )
 
+        configuration.weekStartOffset = RecyclerCalendarConfiguration.START_DAY_OF_WEEK.MONDAY
+
         // Some Random Events
         for (i in 0..30 step 3) {
             val eventCal = Calendar.getInstance()

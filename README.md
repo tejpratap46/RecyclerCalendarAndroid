@@ -150,26 +150,28 @@ endCal.time = date
 endCal.add(Calendar.MONTH, 3)  
   
 val configuration: SimpleRecyclerCalendarConfiguration =
-            SimpleRecyclerCalendarConfiguration(
-                calenderViewType = RecyclerCalendarConfiguration.CalenderViewType.VERTICAL, // calendarViewType could be VERTICAL OR HORIZONTAL
-                calendarLocale = Locale.getDefault(),
-                includeMonthHeader = true,
-                selectionMode = SimpleRecyclerCalendarConfiguration.SelectionModeNone() // selectionMode could be one of [SelectionModeNone, SelectionModeSingle, SelectionModeMultiple, SelectionModeRange]
-            )
+    SimpleRecyclerCalendarConfiguration(
+        calenderViewType = RecyclerCalendarConfiguration.CalenderViewType.VERTICAL, // calendarViewType could be VERTICAL OR HORIZONTAL
+        calendarLocale = Locale.getDefault(),
+        includeMonthHeader = true,
+        selectionMode = SimpleRecyclerCalendarConfiguration.SelectionModeNone() // selectionMode could be one of [SelectionModeNone, SelectionModeSingle, SelectionModeMultiple, SelectionModeRange]
+    )
+configuration.weekStartOffset = RecyclerCalendarConfiguration.START_DAY_OF_WEEK.MONDAY
 
-        calenderView!!.initialise(
-            startDate,
-            endDate,
-            configuration,
-            object : SimpleRecyclerCalendarAdapter.OnDateSelected {
-                override fun onDateSelected(date: Date) {
-                    Toast.makeText(
-                        calenderView!!.context,
-                        "Date Selected: ${CalendarUtils.getGmt(date)}",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            })
+
+calenderView!!.initialise(
+    startDate,
+    endDate,
+    configuration,
+    object : SimpleRecyclerCalendarAdapter.OnDateSelected {
+        override fun onDateSelected(date: Date) {
+            Toast.makeText(
+                calenderView!!.context,
+                "Date Selected: ${CalendarUtils.getGmt(date)}",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+    })
 ```
 *To know More about SimpleRecyclerCalendarView visit [SimpleRecyclerCalendarActivity](https://github.com/tejpratap46/RecyclerCalendarAndroid/blob/master/app/src/main/java/com/tejpratapsingh/recyclercalendaractivity/simple/SimpleRecyclerCalendarActivity.kt)*
 
@@ -199,24 +201,25 @@ endCal.time = date
 endCal.add(Calendar.MONTH, 3)  
   
 val configuration: InfiniteRecyclerCalendarConfiguration =
-            InfiniteRecyclerCalendarConfiguration(
-                calenderViewType = RecyclerCalendarConfiguration.CalenderViewType.VERTICAL, // calendarViewType could be VERTICAL OR HORIZONTAL
-                calendarLocale = Locale.getDefault(),
-                includeMonthHeader = true,
-                selectionMode = InfiniteRecyclerCalendarConfiguration.SelectionModeNone() // selectionMode could be one of [SelectionModeNone, SelectionModeSingle, SelectionModeMultiple, SelectionModeRange]
-            )
+    InfiniteRecyclerCalendarConfiguration(
+        calenderViewType = RecyclerCalendarConfiguration.CalenderViewType.VERTICAL, // calendarViewType could be VERTICAL OR HORIZONTAL
+        calendarLocale = Locale.getDefault(),
+        includeMonthHeader = true,
+        selectionMode = InfiniteRecyclerCalendarConfiguration.SelectionModeNone() // selectionMode could be one of [SelectionModeNone, SelectionModeSingle, SelectionModeMultiple, SelectionModeRange]
+    )
+configuration.weekStartOffset = RecyclerCalendarConfiguration.START_DAY_OF_WEEK.MONDAY
 
-        calenderView!!.initialise(
-            configuration,
-            object : InfiniteRecyclerCalenderAdapter.OnDateSelected {
-                override fun onDateSelected(date: Date) {
-                    Toast.makeText(
-                        calenderView!!.context,
-                        "Date Selected: ${CalendarUtils.getGmt(date)}",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            })
+calenderView!!.initialise(
+    configuration,
+    object : InfiniteRecyclerCalenderAdapter.OnDateSelected {
+        override fun onDateSelected(date: Date) {
+            Toast.makeText(
+                calenderView!!.context,
+                "Date Selected: ${CalendarUtils.getGmt(date)}",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+    })
 ```
 *To know More about InfiniteRecyclerCalendarActivity visit [InfiniteRecyclerCalendarActivity](https://github.com/tejpratap46/RecyclerCalendarAndroid/blob/master/app/src/main/java/com/tejpratapsingh/recyclercalendaractivity/simple/InfiniteRecyclerCalendarActivity.kt)*
 
